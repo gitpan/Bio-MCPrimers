@@ -1,6 +1,6 @@
 #!/usr/bin/perl -I.
 
-my $VERSION = '1.00';
+my $VERSION = '1.01';
 
 # mcprimers - molecular cloning PCR primers for pET-32a
 

@@ -3,7 +3,7 @@ package Bio::MCPrimers;
 use strict;
 use warnings;
 
-my $VERSION = '1.00';
+my $VERSION = '1.01';
 
 # Bio::MCPrimers.pm - generates molecular cloning PCR primers for pET-32a
 
