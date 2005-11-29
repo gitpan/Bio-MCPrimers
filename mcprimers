@@ -1,6 +1,6 @@
 #!/usr/bin/perl -I.
 
-my $VERSION = '1.01';
+my $VERSION = '1.02';
 
 # mcprimers - molecular cloning PCR primers for pET-32a
 
@@ -202,6 +202,8 @@ if (@{$answer_ar} == 0) {
         
         # compose result text
         my $result = qq/
+Start codon at  $answer_hr->{start}
+Stop codon  at  $answer_hr->{stop}
 Left RE site  = $re_name{$answer_hr->{left_re}} ($answer_hr->{left_re})
 Right RE site = $re_name{$answer_hr->{right_re}} ($answer_hr->{right_re})
 

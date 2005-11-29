@@ -3,7 +3,7 @@ package Bio::MCPrimers;
 use strict;
 use warnings;
 
-my $VERSION = '1.01';
+my $VERSION = '1.02';
 
 # Bio::MCPrimers.pm - generates molecular cloning PCR primers for pET-32a
 
@@ -247,10 +247,13 @@ sub _solver {
 
                         # see if solution is valid
                         # and check if one or all solutions are needed
+                        # ---> AND append one solution to @{$solution_ar} <---
                         if (_handle_reply($reply,
                                           $more_modified_gene,
                                           $re_l,
                                           $re_r,
+                                          $gene_start,
+                                          $gene_stop,
                                           $solution_ar) == 1 and $all == 0) {
                         
                             # return first valid solution found
@@ -279,6 +282,8 @@ sub _handle_reply {
         $more_modified_gene,    # ATGC modified for left and right RE
         $re_l,                  # left RE
         $re_r,                  # right RE
+        $gene_start,            # location of START codon
+        $gene_stop,             # location of STOP codon
         $solution_ar            # array reference to solution
        ) = @_;
 
@@ -298,7 +303,9 @@ sub _handle_reply {
         # add anonymous hash to anonymous array
         push @{$solution_ar}, { primer3  => $reply,
                                 left_re  => $re_l,
-                                right_re => $re_r };
+                                right_re => $re_r,
+                                start    => $gene_start,
+                                stop     => $gene_stop };
         return 1; # solution added
     }
     
@@ -800,7 +807,7 @@ sub _start_codon {
 
     my $gene_start = 0;
     
-    if ($gene =~ /^((.{$CODON_SIZE})*?)(ATG)/) { 
+    if ($gene =~ /^((.{$CODON_SIZE})*?)((ATG)|(GTG))/) { 
         $gene_start = $-[3];
     }
 
@@ -931,6 +938,8 @@ be generated. This FASTA is specified in command line for mcprimers.
 - mcprimers generates a hash of flag values.
 
 - MCPrimers gets extended gene sequence, RE array, and flag hash.
+
+- Start (ATG GTG) and stop (TAA, TAG, TGA) locations are determined.
 
 - An array of permutations of each RE with up to three '.', not all in a
 row, is generated for regular expressions.
