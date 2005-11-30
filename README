@@ -1,4 +1,4 @@
-README for MCPrimers.pm V 1.02 and mcprimers
+README for MCPrimers.pm V 1.03 and mcprimers
 
 1. Authorship and copyright
 
@@ -40,8 +40,8 @@ Other OS  -    use primer3_core, have IPC::Open3 in search path
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
 gene can be directionally inserted into a vector. pET-32a is the only
-vector currently supported. Solver is generic, restriction enzymes are
-and their order in the vector are specified in the caller.
+vector currently supported. Solver is generic, restriction enzymes and 
+their order in the vector are specified in the caller.
 
 4. Use
 

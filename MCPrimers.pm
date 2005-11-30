@@ -3,7 +3,7 @@ package Bio::MCPrimers;
 use strict;
 use warnings;
 
-my $VERSION = '1.02';
+my $VERSION = '1.03';
 
 # Bio::MCPrimers.pm - generates molecular cloning PCR primers for pET-32a
 
@@ -169,22 +169,18 @@ sub _solver {
     my $solution_ar  = [];      # solution array reference
 
     my @re_matches;   # array of anonymous arrays of RE matches
-    for (my $i = 0; $i < @re; $i++) {  $re_matches[$i] = []  }
+    for (my $i = 0; $i < @re; $i++) { $re_matches[$i] = [] }
 
     my $gene_start = _start_codon($gene); 
     my $gene_stop  = _stop_codon($gene, $gene_start); 
 
     if (not defined $gene_stop) { return undef }
 
-    # patterns and matches for RE
-    my @patterns = _get_re_patterns($re[0], $MAX_CHANGES);
-    my @matches  = _get_re_matches($gene, @patterns);
-
     # generate RE matches
     for (my $i=0; $i < @re; $i += 1) {
 
-        @patterns   = _get_re_patterns($re[$i], $MAX_CHANGES); 
-        my @matches = _get_re_matches($gene, @patterns);
+        my @patterns = _get_re_patterns($re[$i], $MAX_CHANGES); 
+        my @matches  = _get_re_matches($gene, @patterns);
 
         foreach my $match (@matches) { 
             push @{$re_matches[$i]}, $match;
@@ -210,21 +206,22 @@ sub _solver {
                                             $re_pos_l, 
                                             $re_l,
                                             $clamp);
-    
+
             # loop across rest of sites
             my $num_sites_left = @re;
             my $site = 0;
             
-            # rest of enzymes left after head has been unshifted
+            # rest of enzymes left after head has been shifted off
             while ($site < $num_sites_left) {
-        
+       
                 my $re_r = $re[$site];
                 my $re_pos_r_ref = $re_matches[$site]; 
+                my $right_hr = {};
 
                 # rest of restriction sites going right in vector
-                foreach my $re_pos_r (@{$re_pos_r_ref}) {
+                RIGHT: foreach my $re_pos_r (@{$re_pos_r_ref}) {
     
-                    if ($re_pos_r < $gene_stop) {  next  }
+                    if ($re_pos_r < $gene_stop) {  next RIGHT }
     
                     # right primers
                     my $more_modified_gene = $modified_gene;
@@ -233,7 +230,10 @@ sub _solver {
                                                       $re_pos_r, 
                                                       $re_r,
                                                       $clamp);
-    
+
+                    # test new primers only, bypass primers already tested
+                    foreach (@right) { if (defined $right_hr->{$_}) { next RIGHT }   }
+
                     # generate primer pairs and have them checked
                     my $reply = _primer_pairs(\@left, 
                                               \@right, 
@@ -261,6 +261,9 @@ sub _solver {
                         
                         }
                     } 
+
+                    # keep track of which right primers have been tested
+                    foreach (@right) { $right_hr->{$_} = 1 }
                 }
                 
                 # next RE site for possible insertion
@@ -723,16 +726,17 @@ sub _create_left_primers {
     } else {            
         _create_primers($re_l, $modified_gene, $left_primers, 'left');
     }
-    
+ 
+       
     my @left;
 
     foreach my $l (keys %{$left_primers}) {    
-    
+  
         if (_check_3prime_gc($l) == 1) {
             push @left, $l
         }
     }
-    
+ 
     return @left;
 }
 
