@@ -1,9 +1,9 @@
 package Bio::MCPrimers;
+our $VERSION = '1.04';
 
 use strict;
 use warnings;
 
-my $VERSION = '1.03';
 
 # Bio::MCPrimers.pm - generates molecular cloning PCR primers for pET-32a
 
@@ -90,11 +90,14 @@ my $fh_read;          # read and write handles used
 #### front end solver sets up for OS needs ####
 sub find_mc_primers {
 
-    my ($gene,      # ATGC string
-        $flag_hr,   # anonymous hash reference to flags
-        @re         # array of restriction enzyme strings
+    my ($gene,        # ATGC string
+        $flag_hr,     # anonymous hash reference to flags
+        $version_sr,  # version scalar reference
+        @re           # array of restriction enzyme strings
        ) = @_;
       
+    ${$version_sr} = $VERSION;  # return to caller
+
     my $search_shift = 0;       # permit the search for left primer
                                 # to shift to the left
     my $all          = 0;       # return all solutions found
@@ -232,7 +235,7 @@ sub _solver {
                                                       $clamp);
 
                     # test new primers only, bypass primers already tested
-                    foreach (@right) { if (defined $right_hr->{$_}) { next RIGHT }   }
+                    foreach (@right) { if (defined $right_hr->{$_}) { next RIGHT } }
 
                     # generate primer pairs and have them checked
                     my $reply = _primer_pairs(\@left, 
@@ -869,9 +872,10 @@ their order in the vector are specified in the caller.
 
 sub find_mc_primers
 
-    $gene,      # ATGC string with extended regions left and right
-    $flag_hr,   # anonymous hash reference to flags
-    @re         # array of restriction enzyme strings
+    $gene,        # ATGC string with extended regions left and right
+    $flag_hr,     # anonymous hash reference to flags
+    $version_hr   # return MCPrimers version here
+    @re           # array of restriction enzyme strings
     
 Not explicitily exported. Use Bio::MCPrimers::find_mc_primers
 
@@ -879,22 +883,23 @@ See mcprimers for an example of use.
  
 =head1 INSTALLATION
 
-MCPrimers.pm  - place into Perl Bio/MCPrimers.pm.
-mcprimers     - place in a directory where it can be accessed by users.
-mcprimers.bat - for MS Windows
+    MCPrimers.pm  - place into Perl Bio/MCPrimers.pm. 
+    mcprimers     - place in a directory where it can be accessed by users. 
+    mcprimers.bat - for MS Windows
 
-PRIMER3DIR -   set this environment variable to point to Primer3 executable.
-If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
+    PRIMER3DIR -   set environment variable to point to Primer3 executable.
+    If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
 
-MSWindows -    use primer3.exe
-Other OS  -    use primer3_core, have IPC::Open3 in search path
+    MSWindows -    use primer3.exe
+    Other OS  -    use primer3_core, have IPC::Open3 in search path
  
 =head1 DEPENDENCIES
 
 Non-MSWindows use requires IPC::Open3
 
 Primer3 used as primer3.exe on MSWindows and as primer3_core elsewhere.
-Specify PRIMER3DIR for path to Primer3 executable
+
+Specify PRIMER3DIR for path to Primer3 executable.
 
 =head1 EXAMPLES
 
@@ -925,14 +930,14 @@ Use at your risk. Check any solutions you obtain.
 
 Probably. Use at your own risk.
 
-This software comes with no guarantee of usefulness.
-Use at your own risk. Check any solutions you obtain.
+This software comes with no guarantee of usefulness. 
+Use at your own risk. Check any solutions you obtain. 
 Stephen G. Lenk assumes no responsibility for the use of this software.
  
 =head1 SOFTWARE HEURISTIC EMPLOYED
 
-- User of mcprimers gets FASTA for gene that is in-frame. The Kegg
-site allows a FASTA with 21 NT upstream and 200 or so NT downstream to
+- User of mcprimers gets FASTA for gene that is in-frame. The Kegg 
+site allows a FASTA with 21 NT upstream and 200 or so NT downstream to 
 be generated. This FASTA is specified in command line for mcprimers.
 
 - mcprimers generates an array of ATGC representing extended gene.
@@ -941,37 +946,38 @@ be generated. This FASTA is specified in command line for mcprimers.
 
 - mcprimers generates a hash of flag values.
 
-- MCPrimers gets extended gene sequence, RE array, and flag hash.
+- MCPrimers gets extended gene sequence, RE array, version reference, 
+and flag hash.
 
 - Start (ATG GTG) and stop (TAA, TAG, TGA) locations are determined.
 
-- An array of permutations of each RE with up to three '.', not all in a
+- An array of permutations of each RE with up to three '.', not all in a 
 row, is generated for regular expressions.
 
-- An array of matches to the gene for each permutation is generated, using
-regular expessions that generate variability and proper GC clamping. These
+- An array of matches to the gene for each permutation is generated, using 
+regular expessions that generate variability and proper GC clamping. These 
 matches are checked to be sure that there are no extended GC runs (3 or more 
-in a row) in the last 5 nucleotides at the 3' end.
+in a row) in the last 5 nucleotides at the 3' end. See reference (2).
 
 - The restriction enzyme sequences and regular expression matches are 
-processed so that the first site is processed against all remaining sites.
-When that is done, the second site is processed against all remaining
-sites. This continues until the last site is left, where processing
+processed so that the first site is processed against all remaining sites. 
+When that is done, the second site is processed against all remaining 
+sites. This continues until the last site is left, where processing 
 terminates.
 
-- The current head against all the rest process generates successive pairs
+- The current head against all the rest process generates successive pairs 
 of primers. These are tested against Primer3. Any primers identified by 
-Primer3 as bad are excluded from future consideration, to reduce search
+Primer3 as bad are excluded from future consideration, to reduce search 
 space size.
 
--The extended gene sequence is successively modified to match the restriction
+-The extended gene sequence is successively modified to match the restriction 
 enzyme sequences, allowing proper matching in Primer3.
 
-- A solution primer pair validated by Primer3 is checked to ensure that it 
+- Any solution primer pair validated by Primer3 is checked to ensure that it 
 does not match anywhere else in the sequence.
 
 - The modified gene sequence is checked to ensure that the STOP codon is 
-still in the same place, which is needed when the protein is expressed in
+still in the same place, which is needed when the protein is expressed in 
 the transfected vector.
 
 - If only one solution is desired, the first solution is returned to the 
@@ -980,18 +986,18 @@ calling program as soon as it is found.
 - If all solutions are desired, they are successively found and retained, 
 being returned to the caller when the whole search is done.
 
-- Individual solutions are held in anonymous hashes. The has references are
+- Individual solutions are held in anonymous hashes. The hash references are 
 held in an array, which is returned to the caller for processing.
  
 =head1 COPYRIGHT
 
 Stephen G. Lenk (C) 2005. All rights reserved. 
 
-This program is free software; you can redistribute it and/or  
+This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.
- 
-Primer3 is used by this code to verify that the PCR primers are OK.
+
 Primer3 is Copyright (c) 1996,1997,1998,1999,2000,2001,2004
+
 Whitehead Institute for Biomedical Research. All rights reserved.
 
 =head1 AUTHOR
@@ -1004,21 +1010,23 @@ slenk@emich.edu
 
 Primer3 is called by this code to verify that the PCR primers are OK.
 
-Thanks to Tim Wiggin for algorithm suggestions and encouragement
-    Use of direct string comparisons
-    Modify gene for Primer3 check
+Thanks to Tim Wiggin for algorithm suggestions and encouragement. 
+The use of direct string comparisons. 
+Modify gene to match PCR primer for Primer3 check. 
     
-Thanks to Dan Clemans for showing me molecular cloning in the first place
-I am using Dr. Clemans's ideas about good MC primers in this code.
+Thanks to Dan Clemans for showing me molecular cloning in the first place. 
+I am using Dr. Clemans's ideas about good MC primers in this code. 
 Any errors in interpretation or implementation are mine.
 
-Ken Youens-Clark <kyclark@gmail.com> has provided guidance in the
-proper behaviour and naming of this software, including a code review.
+Ken Youens-Clark <kyclark@gmail.com> has provided guidance in the proper 
+naming of this software so that it functions cooperatively with other 
+Perl modules.
 
 Other references:
 
-http://www.premierbiosoft.com/tech_notes/PCR_Primer_Design.html
-http://www.mcb.uct.ac.za/pcroptim.htm
+(1) http://www.premierbiosoft.com/tech_notes/PCR_Primer_Design.html
+
+(2) http://www.mcb.uct.ac.za/pcroptim.htm
 
 
 =cut

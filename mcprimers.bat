@@ -33,6 +33,7 @@ goto endofperl
 #             CGI or other use that can overwrite these files is
 #             a bad idea. Non-MS Windows uses IPC::Open3 pipes.
 
+# Use with V1.04 and above of MCPrimers.pm
 
 use strict;
 use warnings;
@@ -60,8 +61,8 @@ Use at your risk. Check any solutions you obtain.
 /;
 
 
-my %flag;
-my $flag;
+my %flag;    # hash for all flags
+my $flag;    # flag currently being checked
 
 
 # command line options
@@ -171,14 +172,21 @@ $re_name{AAGCTT}   = 'HindIII';
 $re_name{GCGGCCGC} = 'NotI, EagI';
 $re_name{CTCGAG}   = 'AvaI, XhoI';
 
-my $result;              # printable result
+my $version;             # version of MCPrimers
+
+# invoke solver
+my $answer_ar = Bio::MCPrimers::find_mc_primers($gene, 
+                                                \%flag, 
+                                                \$version, 
+                                                @re);
 
 
 # Copyright notices, Primer3 here as MCPrimers uses Primer3
 my $copr = 
 qq/   
 |--------------------------------------------------------------------|
-| MCPrimers Copyright (c) 2005 Stephen G. Lenk. All rights reserved. |
+| MCPrimers V$version                                                    | 
+| Copyright (c) 2005 Stephen G. Lenk. All rights reserved.           |
 |                                                                    |
 | Primer3 Copyright (c) 1996,1997,1998,1999,2000,2001,2004           |
 | Whitehead Institute for Biomedical Research. All rights reserved.  |
@@ -186,11 +194,6 @@ qq/
 /;
 
 print $copr;
-
-
-# invoke solver
-my $answer_ar = Bio::MCPrimers::find_mc_primers($gene, \%flag, @re);
-
 
 if (@{$answer_ar} == 0) { 
 
