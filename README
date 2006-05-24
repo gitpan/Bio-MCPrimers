@@ -1,19 +1,20 @@
-README for MCPrimers.pm V1.04 and mcprimers
+README for MCPrimers.pm V1.5.1, mcprimers.pl, and CloningVector.pm
 
 1. Authorship and copyright
 
-Author:    Stephen G. Lenk, November 2005
-Copyright: Stephen G. Lenk (C) 2005. All rights reserved. 
+Author:    Stephen G. Lenk, November 2005, May 2006.
+Copyright: Stephen G. Lenk (C) 2005, 2006. All rights reserved. 
 
 This program is free software; you can redistribute it and/or  
 modify it under the same terms as Perl itself.
-Licenced under the Perl Artistic Licence.
+Licenced under the Artistic Licence.
 
 ############################################################################
 # This software comes with no guarantee of usefulness.
 # Use at your own risk.
 # There is no guarantee this code will find the best solution, or even any 
-# solution, or that the solutions it finds will be correct or useful to you.
+# solution, or that the solutions it finds will be correct or useful to 
+# you.
 #
 # Use at your risk. Check any solutions you obtain.
 #
@@ -26,37 +27,56 @@ Whitehead Institute for Biomedical Research. All rights reserved.
 
 2. Installation
 
-MCPrimers.pm  - Place into Perl Bio/MCPrimers.pm.
-mcprimers.bat - Front end script for MSWindows 
-mcprimers     - Rename as mcprimers for other OS (OSX, etc)
+MCPrimers.pm     - Place into Bio/MCPrimers.pm
+CloningVector.pm - Place into Bio/Data/Plasmid/CloningVector.pm
+mcprimers.pl     - Front end script. Make available to users.
 
-PRIMER3DIR -   set this environment variable to point to Primer3 executable.
+PRIMER3DIR -   Set this environment variable to point to diectory containing
+               Primer3 executable.
+
 If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
 
 MSWindows -    use primer3.exe
-Other OS  -    use primer3_core, have IPC::Open3 in search path
+Other OS  -    use primer3_core
 
 3. Purpose
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
 gene can be directionally inserted into a vector. pET-32a is the only
 vector currently supported. Solver is generic, restriction enzymes and 
-their order in the vector are specified in the caller.
+their order in the vector are specified in mcprimer.pl and in 
+CloningVector.pm
 
 4. Use
 
-Use:     mcprimers [options] dna.fasta > result.pr3
-Options: [-h] [-s search_shift] [-all] [-clamp (both | 3prime)]
+Use:     perl mcprimers.pl [options] -vector name dna.fasta > result.pr3
+Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
 
 -h        help
--s        integer value to shift search of left RE match into gene
-          use -s 24 (or other value) if initial search fails
--all      generate all solutions the MCPrimer heuristic will generate
+-vector   cloning vector name (i.e. pET-32a)
+-shift    integer value to shift search of left RE match into gene
+          use -shift 12 (or other value) if initial search fails
 -clamp    GC clamp
           'both' will clamp last NT at both ends to G or C (default)
           '3prime' will clamp last NT on 3' ends to G or C
           
-Example:  mcprimers -s 12 -clamp 3prime -all ppib.fa > ppib_all.pr3
+Example:  
+
+perl mcprimers.pl -vector pET-32a -shift 12 -clamp 3prime ppib.fa > ppib_all.pr3
+
+Note:        Use perl -Ilib ... if the modules are still in the local lib directory.
+
+Limitations: Does not account for redundancy codes in FASTA files.
+
+Note:        These runs use intermediate files. This means that
+             CGI or other use that can overwrite these files is
+             a bad idea. 
+
+5. Test Results (1.5.1)
+
+Passes test.pl clean on Windows XP with Activestate Perl
+OSX with non-Activestate Perl there are different results each time from mcprimers !?
+Not tested on Linux
 
 ---------------
 
@@ -64,4 +84,4 @@ Enjoy,
 
 Steve Lenk
 slenk@emich.edu
-
+May 2006

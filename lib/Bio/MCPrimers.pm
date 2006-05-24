@@ -1,63 +1,57 @@
 package Bio::MCPrimers;
-our $VERSION = '1.04';
+our $VERSION = '1.5.1';
 
 use strict;
 use warnings;
 
 
-# Bio::MCPrimers.pm - generates molecular cloning PCR primers for pET-32a
+# Bio::MCPrimers.pm - generates molecular cloning PCR primers
 
 ##########################################################################
 # This software comes with no guarantee of usefulness.
 # Use at your own risk. Check any solutions you obtain.
 # Stephen G. Lenk assumes no responsibility for the use of this software.
+# Licenced under the Artistic Licence.
 ##########################################################################
 
 #######################################################
 ###### See bottom for pod and other information    ####
 #######################################################
 
+my $primer3_name;       # set depending upon OS
+my $primer3_dir;        # from $ENV or set to default
+my $primer3_exe;        # full executable name
 
 BEGIN {
+
+    # check PRIMER3DIR
+    if (not (defined $ENV{PRIMER3DIR})) {
+        $primer3_dir = '.'
+    }   
     
-    if ($^O =~ /^MSW/) { # Microsoft
+    if ($^O =~ /^MSW/) { 
+    
+        # Microsoft
+        $primer3_name = 'primer3.exe';
+        $primer3_exe  = "$primer3_dir\\$primer3_name";
+    } 
+    else {         
+    
+        # non-Microsoft
+        $primer3_name = 'primer3_core';
+        $primer3_exe  = "$primer3_dir/$primer3_name";
+    }
 
-        # check PRIMER3DIR
-        if (not (defined $ENV{PRIMER3DIR})) {
-            $ENV{PRIMER3DIR} = '.'
-        } 
-
-        # Is Primer3 executable available?
-        if (not (-x "$ENV{PRIMER3DIR}\\primer3.exe")) {
-
-print STDERR "\nprimer3.exe not available at $ENV{PRIMER3DIR}\\primer3.exe\n\n";
-print STDERR "Check your environment variable PRIMER3DIR\n\n";
-
-            exit 1;
-        }
-
-    } else { # non-Microsoft
-
-        # IPC::Open3 used for non-MSW
-        require IPC::Open3;
-
-        # check PRIMER3DIR      
-        if (not (defined $ENV{PRIMER3DIR})) {
-            $ENV{PRIMER3DIR} = '.'
-        } 
-
-        # Is Primer3 executable available?
-        if (not (-x "$ENV{PRIMER3DIR}/primer3_core")) {
-                 
-print STDERR "\nprimer3_core not available at $ENV{PRIMER3DIR}/primer3_core\n\n";
-print STDERR "Check your environment variable PRIMER3DIR\n\n";
-
-            exit 1;
-        }
+    # Is Primer3 executable available?
+    if (not -e $primer3_exe) {    
+        print STDERR "\n$primer3_exe not available\n\n";
+        exit 1;
     }
 }
 
 
+
+# forward declarations for subs
 sub find_mc_primers;
 sub _solver;
 sub _get_re_patterns;
@@ -82,46 +76,32 @@ my $CODON_SIZE = 3;   # likely to stay a constant
 my %left_bad;         # for tracking bad primers during calculation
 my %right_bad;        # and check right as well
 
-my $fh_write;         # for non-MSW pipes from IPC::Open3
-my $fh_read;          # read and write handles used
+my $fh_write;         # write to Primer3
+my $fh_read;          # read from Primer3
 
 
 
 #### front end solver sets up for OS needs ####
 sub find_mc_primers {
 
-    my ($gene,        # ATGC string
-        $flag_hr,     # anonymous hash reference to flags
-        $version_sr,  # version scalar reference
-        @re           # array of restriction enzyme strings
+    my ($gene,           # ATGC string
+        $flag_hr,        # anonymous hash reference to flags
+        $version_sr,     # version scalar reference    
+        $ecut_loc_ar,    # enzyme cut location array reference
+        $vcut_loc_ar,    # vector cut location array reference
+        @re              # array of restriction enzyme strings
        ) = @_;
-      
-    ${$version_sr} = $VERSION;  # return to caller
+       
+    ${$version_sr} = $VERSION;  # return version to caller
 
-    my $search_shift = 0;       # permit the search for left primer
-                                # to shift to the left
-    my $all          = 0;       # return all solutions found
-    my $clamp        = 'both';  # GC clamp at both ends  
-    
-    my $pid;    # process id needed to harvest child
-   
-    # MSW uses intermediate files, otherwise pipes
-    if ( not $^O =~ /^MSW/) {
-    
-        # pipe on non-MSW
-        $pid = IPC::Open3::open3($fh_write, 
-                                 $fh_read, 
-                                 $fh_read, 
-               "$ENV{PRIMER3DIR}/primer3_core -format_output");
-    }
+    my $search_shift = 0;  # permit the search for left primer
+                           # to shift to the right
+    my $clamp = 'both';    # GC clamp at both ends  
 
     # digest flags into local variables
     if (defined $flag_hr->{search_shift}) { 
         $search_shift = $flag_hr->{search_shift} 
     } 
-    if (defined $flag_hr->{all}) {
-        $all = 1
-    }
     if (defined $flag_hr->{clamp}) {
 
         if ($flag_hr->{clamp} eq 'both' or 
@@ -132,27 +112,17 @@ sub find_mc_primers {
     }
     
     # invoke solver
-    my $answer = _solver($gene, $search_shift, $all, $clamp, @re);
+    my $answer = _solver($gene, 
+                         $search_shift, 
+                         $clamp, 
+                         $ecut_loc_ar,
+                         $vcut_loc_ar,
+                         @re);
 
-    # clean up intermediates for MSW
-    if ($^O =~ /^MSW/) { 
-    
-        # intermediate files in MSW
-        if (-e 'p3in.txt') {        
-            system("del p3in.txt")
-        }
-        if (-e 'p3out.txt') {        
-            system("del p3out.txt")
-        }
-        
-    } else {
-    
-        # clean up pipe and child process
-        close $fh_write;  
-        close $fh_read;
-        waitpid $pid, 0;
-    }
-
+    # clean up intermediate files for Primer3    
+    unlink 'p3in.txt';      
+    unlink 'p3out.txt';
+       
     return $answer;
 }
 
@@ -163,8 +133,9 @@ sub _solver {
 
     my ($gene,         # ATGC string
         $search_shift, # extra search into start of gene for left primer
-        $all,          # provide all solutions
         $clamp,        # both or 3prime
+        $ecut_loc_ar,  # enzyme cut location array reference
+        $vcut_loc_ar,  # vector cut location array reference
         @re            # array of RE strings
        ) = @_;
 
@@ -172,18 +143,25 @@ sub _solver {
     my $solution_ar  = [];      # solution array reference
 
     my @re_matches;   # array of anonymous arrays of RE matches
-    for (my $i = 0; $i < @re; $i++) { $re_matches[$i] = [] }
+    for (my $i = 0; $i < @re; $i++) { 
+        $re_matches[$i] = [];
+    }
 
     my $gene_start = _start_codon($gene); 
     my $gene_stop  = _stop_codon($gene, $gene_start); 
 
-    if (not defined $gene_stop) { return undef }
+    if (not defined $gene_stop) {
+        return $solution_ar;
+    }
 
     # generate RE matches
     for (my $i=0; $i < @re; $i += 1) {
 
         my @patterns = _get_re_patterns($re[$i], $MAX_CHANGES); 
-        my @matches  = _get_re_matches($gene, @patterns);
+        my @matches  = _get_re_matches($gene, 
+                                       $ecut_loc_ar->[$i],
+                                       $vcut_loc_ar->[$i],
+                                       @patterns);
 
         foreach my $match (@matches) { 
             push @{$re_matches[$i]}, $match;
@@ -200,7 +178,9 @@ sub _solver {
         foreach my $re_pos_l (@{$re_pos_l_ref}) {
 
             # control where left primer is placed
-            if ($re_pos_l > (10 + $gene_start + $search_shift)) { next }
+            if ($re_pos_l > (10 + $gene_start + $search_shift)) {            
+                next; 
+            }
          
             # left primers
             my $modified_gene = $gene;
@@ -209,7 +189,7 @@ sub _solver {
                                             $re_pos_l, 
                                             $re_l,
                                             $clamp);
-
+                                            
             # loop across rest of sites
             my $num_sites_left = @re;
             my $site = 0;
@@ -224,18 +204,23 @@ sub _solver {
                 # rest of restriction sites going right in vector
                 RIGHT: foreach my $re_pos_r (@{$re_pos_r_ref}) {
     
-                    if ($re_pos_r < $gene_stop) {  next RIGHT }
+                    if ($re_pos_r < $gene_stop) {  
+                        next RIGHT 
+                    }
     
                     # right primers
                     my $more_modified_gene = $modified_gene;
-                    substr($more_modified_gene, $re_pos_r, length $re_r, $re_r);                       
+                    substr($more_modified_gene, $re_pos_r, length $re_r, $re_r);     
+             
                     my @right = _create_right_primers($more_modified_gene, 
                                                       $re_pos_r, 
                                                       $re_r,
                                                       $clamp);
 
                     # test new primers only, bypass primers already tested
-                    foreach (@right) { if (defined $right_hr->{$_}) { next RIGHT } }
+                    foreach (@right) { 
+                        if (defined $right_hr->{$_}) { next RIGHT } 
+                    }
 
                     # generate primer pairs and have them checked
                     my $reply = _primer_pairs(\@left, 
@@ -248,21 +233,15 @@ sub _solver {
                     # solution obtained if $reply is defined
                     if (defined $reply) { 
 
-                        # see if solution is valid
-                        # and check if one or all solutions are needed
-                        # ---> AND append one solution to @{$solution_ar} <---
-                        if (_handle_reply($reply,
-                                          $more_modified_gene,
-                                          $re_l,
-                                          $re_r,
-                                          $gene_start,
-                                          $gene_stop,
-                                          $solution_ar) == 1 and $all == 0) {
-                        
-                            # return first valid solution found
-                            return $solution_ar;  
-                        
-                        }
+                        # see if solution is valid, if so then 
+                        # append one solution to @{$solution_ar}
+                        _handle_reply($reply,
+                                      $more_modified_gene,
+                                      $re_l,
+                                      $re_r,
+                                      $gene_start,
+                                      $gene_stop,
+                                      $solution_ar);
                     } 
 
                     # keep track of which right primers have been tested
@@ -349,6 +328,7 @@ sub _primers_ok {
     my $range = length $gene; 
     my $excluded_region_start = $gene_start + 30 + $search_shift;
     my $excluded_length =  $gene_stop - $excluded_region_start + 3;
+    
     my @boulder = 
        ( "SEQUENCE=$gene",
          "PRIMER_PRODUCT_MAX_SIZE=$range",
@@ -358,47 +338,53 @@ sub _primers_ok {
          "EXCLUDED_REGION=$excluded_region_start,$excluded_length",
          "PRIMER_EXPLAIN_FLAG=1",
          "=" );
-
-   # write Boulder file
-   if ($^O =~ /^MSW/) {
+   
+    # write intermediate file for Primer3
+    open  $fh_write, ">p3in.txt";
+    foreach (@boulder) { 
+        print $fh_write "$_\n"; 
+    }
+    close $fh_write;
     
-        # MS Windows uses intermediate files
-        open  $fh_write, ">p3in.txt";
-        foreach (@boulder) { 
-            print $fh_write "$_\n"; 
-        }
-    
- system(".\\$ENV{PRIMER3DIR}\\primer3.exe -format_output <p3in.txt >p3out.txt");
-    
-        open $fh_read, "<p3out.txt";
-
-    } else {
-
-       foreach (@boulder) {       
-           print $fh_write "$_\n"; 
-       } 
-    }     
-    
+    # primer3 call done here
+    my $status;    # for system call
+    $status = system("$primer3_exe -format_output <p3in.txt >p3out.txt");
+    if ($status != 0) {
+        print STDERR "\nError: Primer3 error $status\n";
+        exit 1;
+    }
+        
     my $p3_reply;
     
     # go through Primer3 output
+    open $fh_read, "<p3out.txt";   
     PRIMER3_READ: while (<$fh_read>) { 
-    
-        my $line = $_;
-        
+
+        my $line = $_;       
         $p3_reply .= $line;
-    
+
         if ($line =~ /NO PRIMERS FOUND/) { 
         
             # solution fails primer3
             $ok = 0; 
-        } 
-
-        if ($line =~ /^primer3 release/) {
+        }        
+         if ($line =~ /^primer3 release/) {
 
             # done with primer3 for this primer pair
             last PRIMER3_READ;
-        }
+        }   
+        if ($line =~ /PRIMER_ERROR/) {
+        
+            # Primer3 found an error
+            print STDERR "\nError: Primer3 error: $line\n";
+            exit 1;
+        }        
+        if ($line =~ /PROBLEM/) {
+
+            # done with primer3 for this primer pair
+            print STDERR "\n$line\n";
+            exit 1;
+        } 
 
         # check left and right
         if ($line =~ /^Left.*0$/)  { 
@@ -410,12 +396,8 @@ sub _primers_ok {
             $right_bad{$right} = 1 
         }
     }
-        
-    # close intermediate files under windows
-    if ($^O =~ /^MSW/) {
-       close $fh_write;  
-       close $fh_read;
-    }
+ 
+    close $fh_read;
     
     # whew! a solution
     if ($ok == 1) { 
@@ -573,6 +555,7 @@ sub _number_dots {
 }
 
 
+
 #### see if there are too many substitutions in a row being requested ####
 sub _too_many_substitutions_in_a_row {
 
@@ -691,20 +674,29 @@ sub _get_re_patterns {
 sub _get_re_matches {
 
     my ($gene,       # ATGC sequence
+        $ecut_loc,   # enzyme cut location
+        $vcut_loc,   # vector cut location
         @patterns    # array of RE patterns
        ) = @_;
 
     my @positions;
+    my %used;
 
     # loop through patterns
-    my $p;
     foreach my $p (@patterns) {
 
         # loop across gene
         while ($gene =~ /($p)/g) {
             
-            # 'magic' - no need to check for in-frame
-            push @positions, $-[0]; 
+            # check for in-frame
+            if ($vcut_loc == (($-[0] + $ecut_loc) % 3)) {
+
+                # only use a location once
+                if (not defined $used{$-[0]}) {
+                    push @positions, $-[0]; 
+                }
+                $used{$-[0]} = 1;
+            }
         } 
     }   
 
@@ -859,67 +851,71 @@ __END__
 
 =head1 NAME
 
-Bio::MCPrimers and mcprimers
+Bio::MCPrimers (and mcprimers.pl)
  
 =head1 DESCRIPTION
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
-gene can be directionally inserted into a vector. pET-32a is the only
-vector currently supported. Solver is generic, restriction enzymes and 
-their order in the vector are specified in the caller.
+gene can be directionally inserted into a vector. Solver is generic, 
+restriction enzymes and their order in the vector are specified in the 
+caller.
  
 =head1 EXPORT SUBROUTINES
 
 sub find_mc_primers
 
-    $gene,        # ATGC string with extended regions left and right
-    $flag_hr,     # anonymous hash reference to flags
-    $version_hr   # return MCPrimers version here
-    @re           # array of restriction enzyme strings
+    $gene,           # ATGC string (use 21 NT upstream, 200 NT downsteam)
+    $flag_hr,        # anonymous hash reference to flags from mcprimers.pl
+    $version_sr,     # version scalar reference returned to caller   
+    $ecut_loc_ar,    # enzyme cut location array reference from caller
+    $vcut_loc_ar,    # vector cut location array reference from caller
+    @re              # array of restriction enzyme strings from caller
     
 Not explicitily exported. Use Bio::MCPrimers::find_mc_primers
 
-See mcprimers for an example of use.
+See mcprimers.pl for an example of use.
  
 =head1 INSTALLATION
 
-    MCPrimers.pm  - place into Perl Bio/MCPrimers.pm. 
-    mcprimers     - place in a directory where it can be accessed by users. 
-    mcprimers.bat - for MS Windows
+    MCPrimers.pm     - place into Perl Bio/MCPrimers.pm
+    CloningVector.pm - place into perl Bio/Data/Plasmid/CloningVector.pm
+    mcprimers.pl     - place in a directory where it can be accessed by users. 
 
-    PRIMER3DIR -   set environment variable to point to Primer3 executable.
+    PRIMER3DIR       - set environment variable to point to Primer3 
+                       executable directory.
+
     If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
 
     MSWindows -    use primer3.exe
-    Other OS  -    use primer3_core, have IPC::Open3 in search path
+    Other     -    use primer3_core
  
 =head1 DEPENDENCIES
 
-Non-MSWindows use requires IPC::Open3
+Primer3 used as primer3.exe on MSWindows and as primer3_core otherwise.
 
-Primer3 used as primer3.exe on MSWindows and as primer3_core elsewhere.
+Specify environment variable PRIMER3DIR for path to Primer3 executable directory.
 
-Specify PRIMER3DIR for path to Primer3 executable.
+=head1 SYNOPSIS using mcprimers.pl
 
-=head1 EXAMPLES
+perl mcprimers.pl -h
 
-mcprimers -h
+perl mcprimers.pl -vector pET-32a ppib.fa > ppib.pr3
 
-mcprimers ppib.fa 
+perl mcprimers.pl -vector pET-32a -clamp 3prime hemy.fa > hemy.pr3
 
-mcprimers -clamp 3prime hemy.fa 
+perl mcprimers.pl -shift 12 -vector pET-32a -clamp 3prime cyss.fa > cyss.pr3
 
-mcprimers -s 24 -all -clamp 3prime cyss.fa > cyss.pr3
+Note: Use -Ilib if modules are still in local lib directory.
 
-See mcprimers for an example of the use of Bio::MCPrimers
+See mcprimers.pl for an example of the use of Bio::MCPrimers itself
  
 =head1 LIMITATIONS
 
-Limitation: Does not account for redundancy codes.
+Limitation: Primer3 does not account for redundancy codes.
 
-Note:       MS Windows runs use intermediate files, so don't use this in a
-            manner that intermediate files will overwrite one another. CGI
-            use under MSWindows is probably a bad idea.
+Note:       Runs use intermediate files, so don't use this in a
+            manner such that intermediate files will overwrite one another. 
+            CGI use is probably a bad idea.
             
 There is no guarantee this code will find the best solution, or even any 
 solution, or that the solutions it finds will be correct or useful to you.
@@ -934,64 +930,9 @@ This software comes with no guarantee of usefulness.
 Use at your own risk. Check any solutions you obtain. 
 Stephen G. Lenk assumes no responsibility for the use of this software.
  
-=head1 SOFTWARE HEURISTIC EMPLOYED
-
-- User of mcprimers gets FASTA for gene that is in-frame. The Kegg 
-site allows a FASTA with 21 NT upstream and 200 or so NT downstream to 
-be generated. This FASTA is specified in command line for mcprimers.
-
-- mcprimers generates an array of ATGC representing extended gene.
-
-- mcprimers generates an in-order array of restriction enzyme sequences.
-
-- mcprimers generates a hash of flag values.
-
-- MCPrimers gets extended gene sequence, RE array, version reference, 
-and flag hash.
-
-- Start (ATG GTG) and stop (TAA, TAG, TGA) locations are determined.
-
-- An array of permutations of each RE with up to three '.', not all in a 
-row, is generated for regular expressions.
-
-- An array of matches to the gene for each permutation is generated, using 
-regular expessions that generate variability and proper GC clamping. These 
-matches are checked to be sure that there are no extended GC runs (3 or more 
-in a row) in the last 5 nucleotides at the 3' end. See reference (2).
-
-- The restriction enzyme sequences and regular expression matches are 
-processed so that the first site is processed against all remaining sites. 
-When that is done, the second site is processed against all remaining 
-sites. This continues until the last site is left, where processing 
-terminates.
-
-- The current head against all the rest process generates successive pairs 
-of primers. These are tested against Primer3. Any primers identified by 
-Primer3 as bad are excluded from future consideration, to reduce search 
-space size.
-
--The extended gene sequence is successively modified to match the restriction 
-enzyme sequences, allowing proper matching in Primer3.
-
-- Any solution primer pair validated by Primer3 is checked to ensure that it 
-does not match anywhere else in the sequence.
-
-- The modified gene sequence is checked to ensure that the STOP codon is 
-still in the same place, which is needed when the protein is expressed in 
-the transfected vector.
-
-- If only one solution is desired, the first solution is returned to the 
-calling program as soon as it is found.
-
-- If all solutions are desired, they are successively found and retained, 
-being returned to the caller when the whole search is done.
-
-- Individual solutions are held in anonymous hashes. The hash references are 
-held in an array, which is returned to the caller for processing.
- 
 =head1 COPYRIGHT
 
-Stephen G. Lenk (C) 2005. All rights reserved. 
+Stephen G. Lenk (C) 2005, 2006. All rights reserved. 
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.
@@ -1002,10 +943,18 @@ Whitehead Institute for Biomedical Research. All rights reserved.
 
 =head1 AUTHOR
 
-Stephen G. Lenk, November 2005 
+Stephen G. Lenk, November 2005, May 2006. 
 
 slenk@emich.edu
  
+==head1 CHANGES
+
+V1.5.0
+Solid base code - start change log with next release
+
+V1.5.1
+Package updated to beter reflect good CPAN release practices.
+
 =head1 ACKNOWLEDGEMENTS
 
 Primer3 is called by this code to verify that the PCR primers are OK.
@@ -1017,6 +966,10 @@ Modify gene to match PCR primer for Primer3 check.
 Thanks to Dan Clemans for showing me molecular cloning in the first place. 
 I am using Dr. Clemans's ideas about good MC primers in this code. 
 Any errors in interpretation or implementation are mine.
+
+Patricia Sinawe found that earlier versions of MCPrimers did not
+detect out-of-frame solutions and suggested that extra binding sites
+could be included.
 
 Ken Youens-Clark <kyclark@gmail.com> has provided guidance in the proper 
 naming of this software so that it functions cooperatively with other 

@@ -1,0 +1,10 @@
+primer3.exe
+README
+HIcysS.pr3
+MANIFEST
+HIcysS.fa
+mcprimers.pl
+Changes
+test.pl
+lib\Bio\MCPrimers.pm
+lib\Bio\Data\Plasmid\CloningVector.pm
