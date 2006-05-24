@@ -1,4 +1,5 @@
 # test.pl - test Bio::MCPrimers package
+$VERSION='2.0';
 
 # Author: Steve Lenk, May 2006
 

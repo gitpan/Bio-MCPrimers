@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-$VERSION = '1.5.1';
+$VERSION = '2.0';
 
 # mcprimers.pl - Designs molecular cloning PCR primers.
 
@@ -24,7 +24,7 @@ $VERSION = '1.5.1';
 
 # see Bio::MCPrimers for POD
 
-# Use with V1.5.1 of BIO::MCPrimers.pm
+# Use with V2.0 of BIO::MCPrimers.pm
 
 use strict;
 use warnings;
@@ -189,7 +189,7 @@ $answer_ar = Bio::MCPrimers::find_mc_primers($gene,
 my $copr = 
 qq/
 |------------------------------------------------------------------|
-| MCPrimers V$version                                                 |    
+| MCPrimers V$version                                                   |    
 | Copyright (c) 2005,2006 Stephen G. Lenk. All rights reserved     |
 | Primer3 Copyright (c) 1996,1997,1998,1999,2000,2001,2004         |  
 | Whitehead Institute for Biomedical Research. All rights reserved |

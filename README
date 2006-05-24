@@ -1,4 +1,4 @@
-README for MCPrimers.pm V1.5.1, mcprimers.pl, and CloningVector.pm
+README for MCPrimers.pm V2.0, mcprimers.pl, and CloningVector.pm
 
 1. Authorship and copyright
 
@@ -72,7 +72,7 @@ Note:        These runs use intermediate files. This means that
              CGI or other use that can overwrite these files is
              a bad idea. 
 
-5. Test Results (1.5.1)
+5. Test Results (V2.0)
 
 Passes test.pl clean on Windows XP with Activestate Perl
 OSX with non-Activestate Perl there are different results each time from mcprimers !?
