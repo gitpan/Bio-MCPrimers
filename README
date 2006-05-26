@@ -1,4 +1,4 @@
-README for MCPrimers.pm V2.0, mcprimers.pl, and CloningVector.pm
+README for MCPrimers.pm V2.1, mcprimers.pl, and CloningVector.pm
 
 1. Authorship and copyright
 
@@ -39,6 +39,9 @@ If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
 MSWindows -    use primer3.exe
 Other OS  -    use primer3_core
 
+The code can be run in the download directory if an installation is not
+desired.
+
 3. Purpose
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
@@ -62,9 +65,9 @@ Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
           
 Example:  
 
-perl mcprimers.pl -vector pET-32a -shift 12 -clamp 3prime ppib.fa > ppib_all.pr3
+perl mcprimers.pl -vector pET-32a -shift 12 -clamp 3prime cysS.fa > cysS.pr3
 
-Note:        Use perl -Ilib ... if the modules are still in the local lib directory.
+Note:        Use perl -Ilib if the modules are still in the local lib dir.
 
 Limitations: Does not account for redundancy codes in FASTA files.
 
@@ -72,11 +75,19 @@ Note:        These runs use intermediate files. This means that
              CGI or other use that can overwrite these files is
              a bad idea. 
 
-5. Test Results (V2.0)
+5. Test Results (V2.1)
 
-Passes test.pl clean on Windows XP with Activestate Perl
-OSX with non-Activestate Perl there are different results each time from mcprimers !?
-Not tested on Linux
+Passes test.pl clean on Windows XP with Activestate Perl 5.8.7
+
+Passes test.pl clean on OSX with Activestate Perl 5.8.8
+
+Passes test.pl clean on Linux with the standard installed Perl 5.8.7 
+
+Note that HIcysS.fa file needs to be written out in the right text format
+prior to running test.pl
+
+OSX with non-Activestate Perl (5.8.1) there are different results each time 
+from mcprimers !?
 
 ---------------
 

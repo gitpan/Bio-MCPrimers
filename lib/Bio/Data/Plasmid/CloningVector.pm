@@ -1,4 +1,4 @@
-package Bio::Data::Plasmid::CloningVector;
+package Bio::Data::Plasmid::CloningVector; 
 our $VERSION = '1.00';
 
 # Stephen G. Lenk (C) 2006. All rights reserved. 

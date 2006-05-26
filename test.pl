@@ -1,5 +1,5 @@
 # test.pl - test Bio::MCPrimers package
-$VERSION='2.0';
+$VERSION='2.1'; 
 
 # Author: Steve Lenk, May 2006
 
@@ -16,7 +16,10 @@ use warnings;
 # use HIcysS.fa to generate a new test file
 my $test = 1;
 print "Test $test - ";
-system('perl -Ilib mcprimers.pl -vector pET-32a -clamp 3prime -shift 24 HIcysS.fa > generated_file.pr3');
+my $status = system('perl -Ilib mcprimers.pl -vector pET-32a -clamp 3prime -shift 24 HIcysS.fa > generated_file.pr3');
+if ($status != 0) {
+    die "\n\nError in system call to mcprimers.pl - is primer3 available?\n\n";
+}
 
 my $good_file;
 my $generated_file;
@@ -28,7 +31,7 @@ my $good_line      = <$good_file>;
 my $generated_line = <$generated_file>;
 
 # OK so far
-my $status = 1;
+$status = 1;
 
 my %good;
 my %generated;

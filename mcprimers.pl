@@ -1,5 +1,4 @@
-#!/usr/bin/perl
-$VERSION = '2.0';
+$VERSION = '2.1'; 
 
 # mcprimers.pl - Designs molecular cloning PCR primers.
 
@@ -24,7 +23,7 @@ $VERSION = '2.0';
 
 # see Bio::MCPrimers for POD
 
-# Use with V2.0 of BIO::MCPrimers.pm
+# Use with V2.1 of BIO::MCPrimers.pm
 
 use strict;
 use warnings;
@@ -59,6 +58,14 @@ $flag{search_shift} = 0;
 
 my $flag;                       # flag currently being checked
 my $vector_name;                # name of cloning vector
+
+# trap no args case
+if (@ARGV == 0) {
+    
+    # help
+    print STDERR $use_msg;
+    exit(1);
+}
 
 # command line options
 while (@ARGV > 0) { 

@@ -1,5 +1,5 @@
 package Bio::MCPrimers;
-our $VERSION = '2.0';
+our $VERSION = '2.1';
 
 use strict;
 use warnings;
@@ -851,7 +851,7 @@ __END__
 
 =head1 NAME
 
-Bio::MCPrimers (and mcprimers.pl)
+Bio::MCPrimers
  
 =head1 DESCRIPTION
 
@@ -873,13 +873,13 @@ sub find_mc_primers
     
 Not explicitily exported. Use Bio::MCPrimers::find_mc_primers
 
-See mcprimers.pl for an example of use.
+See mcprimers.pl for an example of use and front-end.
  
 =head1 INSTALLATION
 
     MCPrimers.pm     - place into Perl Bio/MCPrimers.pm
     CloningVector.pm - place into perl Bio/Data/Plasmid/CloningVector.pm
-    mcprimers.pl     - place in a directory where it can be accessed by users. 
+    mcprimers.pl     - place in a directory where it can be accessed 
 
     PRIMER3DIR       - set environment variable to point to Primer3 
                        executable directory.
@@ -893,7 +893,7 @@ See mcprimers.pl for an example of use.
 
 Primer3 used as primer3.exe on MSWindows and as primer3_core otherwise.
 
-Specify environment variable PRIMER3DIR for path to Primer3 executable directory.
+Specify environment variable PRIMER3DIR for path to Primer3 executable dir
 
 =head1 SYNOPSIS using mcprimers.pl
 
@@ -947,16 +947,16 @@ Stephen G. Lenk, November 2005, May 2006.
 
 slenk@emich.edu
  
-==head1 CHANGES
+=head1 CHANGES
 
 V1.03 
-Something like initial release.
+Something like initial release (older ones are around)
 
 V1.04 
 Was on CPAN for maybe 6 months.
 
 V1.5.0
-Added seperate data access / fixed in-line issue.
+Added seperate data access / fixed in-frame issue.
 
 V1.5.1
 Package updated to better reflect good CPAN release practices.
@@ -964,7 +964,15 @@ No redundant solutions.
 test.pl added
 
 V2.0
-Trying to appease CPAN version rules.
+Trying to appease CPAN version rules. 
+.zip for Windows XP with primer3.exe executable
+
+V2.1
+Minor fix ups to documentation. 
+Will .tar.gz for OSX/Linux
+Added no args test case to mcprimers.pl
+Removed shebang from mcprimers.pl
+No primer3 executables included
 
 =head1 ACKNOWLEDGEMENTS
 

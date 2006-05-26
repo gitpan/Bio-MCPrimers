@@ -15,4 +15,11 @@ No redundant solutions.
 test.pl added
 
 V2.0
-Trying to appease CPAN version rules.
+Trying to appease CPAN version rules. 
+
+V2.1
+Documentation updates
+Added no args test case to mcprimers.pl (help message)
+Removed shebang from mcprimers.pl
+
+Added system call check in test.pl
