@@ -1,10 +1,11 @@
-primer3_core
 README
 HIcysS.pr3
 MANIFEST
 HIcysS.fa
 mcprimers.pl
-Changes
+CHANGES
 test.pl
+pET-32a.txt
 lib\Bio\MCPrimers.pm
 lib\Bio\Data\Plasmid\CloningVector.pm
+lib\Bio\Data\Plasmid\pET-32a.txt

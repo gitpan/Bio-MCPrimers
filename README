@@ -1,13 +1,17 @@
-README for MCPrimers.pm V2.1, mcprimers.pl, and CloningVector.pm
+README for MCPrimers.pm V2.2, mcprimers.pl, and CloningVector.pm
 
 1. Authorship and copyright
 
-Author:    Stephen G. Lenk, November 2005, May 2006.
-Copyright: Stephen G. Lenk (C) 2005, 2006. All rights reserved. 
+Authors:   MCPrimers:     Stephen G. Lenk, 2005, 2006.
+           CloningVector: Tim Wiggin and Steve Lenk 2006
+
+           
+Copyright: Stephen G. Lenk (C) 2005, 2006 on MCPrimers
+           Tim Wiggin and Steve Lenk (C) 2006 on CloningVector.pm
 
 This program is free software; you can redistribute it and/or  
 modify it under the same terms as Perl itself.
-Licenced under the Artistic Licence.
+Licenced under the Perl Artistic Licence.
 
 ############################################################################
 # This software comes with no guarantee of usefulness.
@@ -19,6 +23,9 @@ Licenced under the Artistic Licence.
 # Use at your risk. Check any solutions you obtain.
 #
 # Stephen G. Lenk assumes no responsibility for the use of this software.
+
+# Tim Wiggin assumes no responsibility for the use of this software.
+#
 ############################################################################
 
 Primer3 is called by this code to verify that the PCR primers are OK.
@@ -30,33 +37,37 @@ Whitehead Institute for Biomedical Research. All rights reserved.
 MCPrimers.pm     - Place into Bio/MCPrimers.pm
 CloningVector.pm - Place into Bio/Data/Plasmid/CloningVector.pm
 mcprimers.pl     - Front end script. Make available to users.
+pET-32a.txt      - Use in working dir or specify MCPRIMERS_DATA_DIR
+                 - It is OK to make your own plasmid data files
+PRIMER3_DIR      - Set this environment variable to point to diectory 
+                   containing Primer3 executable.
 
-PRIMER3DIR -   Set this environment variable to point to diectory containing
-               Primer3 executable.
+If PRIMER3_DIR is not set, MCPrimers will set it to '.' by default.
 
-If PRIMER3DIR is not set, MCPrimers will set it to '.' by default.
+MSWindows - use primer3.exe
+Other OS  - use primer3_core
 
-MSWindows -    use primer3.exe
-Other OS  -    use primer3_core
-
-The code can be run in the download directory if an installation is not
+The code can be run in the download directory 
+if an installation is not
 desired.
+
 
 3. Purpose
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
-gene can be directionally inserted into a vector. pET-32a is the only
-vector currently supported. Solver is generic, restriction enzymes and 
-their order in the vector are specified in mcprimer.pl and in 
-CloningVector.pm
+gene can be directionally inserted into a vector. 
+
+Solver is generic, restriction enzymes and their order in the vector 
+are specified in the data file specified.
 
 4. Use
 
-Use:     perl mcprimers.pl [options] -vector name dna.fasta > result.pr3
+Use: perl mcprimers.pl [options] -vector file_name orf.fasta > result.pr3
+
 Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
 
 -h        help
--vector   cloning vector name (i.e. pET-32a)
+-vector   cloning vector file name
 -shift    integer value to shift search of left RE match into gene
           use -shift 12 (or other value) if initial search fails
 -clamp    GC clamp
@@ -64,8 +75,9 @@ Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
           '3prime' will clamp last NT on 3' ends to G or C
           
 Example:  
-
-perl mcprimers.pl -vector pET-32a -shift 12 -clamp 3prime cysS.fa > cysS.pr3
+ 
+perl mcprimers.pl -vector pET-32a.txt -shift 12 \\
+                  -clamp 3prime cysS.fa > cysS.pr3
 
 Note:        Use perl -Ilib if the modules are still in the local lib dir.
 
@@ -75,7 +87,7 @@ Note:        These runs use intermediate files. This means that
              CGI or other use that can overwrite these files is
              a bad idea. 
 
-5. Test Results (V2.1)
+5. Test Results (V2.2)
 
 Passes test.pl clean on Windows XP with Activestate Perl 5.8.7
 
@@ -83,8 +95,8 @@ Passes test.pl clean on OSX with Activestate Perl 5.8.8
 
 Passes test.pl clean on Linux with the standard installed Perl 5.8.7 
 
-Note that HIcysS.fa file needs to be written out in the right text format
-prior to running test.pl
+Note that HIcysS.fa and pet-32a.txt file need to be written out in 
+the right text format prior to running test.pl (ie. MSW or Unix)
 
 OSX with non-Activestate Perl (5.8.1) there are different results each time 
 from mcprimers !?
@@ -95,4 +107,4 @@ Enjoy,
 
 Steve Lenk
 slenk@emich.edu
-May 2006
+

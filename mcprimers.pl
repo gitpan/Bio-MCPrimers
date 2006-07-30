@@ -1,9 +1,10 @@
-$VERSION = '2.1'; 
+$VERSION = '2.2'; 
 
 # mcprimers.pl - Designs molecular cloning PCR primers.
 
-# Author:    Stephen G. Lenk, November 2005, May 2006.
-# Copyright: Stephen G. Lenk (C) 2005, 2006. All rights reserved. 
+# Author:    Stephen G. Lenk, 2005, 2006.
+
+# Copyright: Stephen G. Lenk (C) 2005, 2006. 
 
 # This program is free software; you can redistribute it and/or  
 # modify it under the same terms as Perl itself.
@@ -17,13 +18,12 @@ $VERSION = '2.1';
 
 # Limitations: Does not account for redundancy codes in FASTA files.
 
-# Note:        These runs use intermediate files. This means that
-#              CGI or other use that can overwrite these files is
-#              a bad idea. 
+# Note: These runs use intermediate files. This means that
+#       CGI or other use that can overwrite these files is a bad idea. 
 
 # see Bio::MCPrimers for POD
 
-# Use with V2.1 of BIO::MCPrimers.pm
+# Use with V2.2 of BIO::MCPrimers.pm
 
 use strict;
 use warnings;
@@ -36,13 +36,13 @@ my $use_msg = qq/
 MCPrimers generates molecular cloning PCR primers.
 Copyright (C) 2005, 2006 Stephen G. Lenk.
 
-Use:     perl mcprimers.pl [options] -vector name dna.fasta > result.pr3
+Use:     perl mcprimers.pl [options] -vector file_name dna.fasta > result.pr3
 Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
 
 -h        help
--vector   cloning vector (i.e. pET-32a)
+-vector   cloning vector file
 -shift    integer value to shift search of left RE match into gene
-          use -shift 24 (or other value) if initial search fails
+          use -shift 12 (or other value) if initial search fails
 -clamp    GC clamp
           'both' will clamp last NT at both ends to G or C (default)
           '3prime' will clamp last NT on only 3' ends to G or C
@@ -192,13 +192,13 @@ $answer_ar = Bio::MCPrimers::find_mc_primers($gene,
                                              @re);
 
 
-# Copyright notices, Primer3 here as MCPrimers uses Primer3
+# Copyright notices
 my $copr = 
 qq/
 |------------------------------------------------------------------|
-| MCPrimers V$version                                                   |    
-| Copyright (c) 2005,2006 Stephen G. Lenk. All rights reserved     |
-| Primer3 Copyright (c) 1996,1997,1998,1999,2000,2001,2004         |  
+| MCPrimers V2.2 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |                         |
+| Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |  
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 

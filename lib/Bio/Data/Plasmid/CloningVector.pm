@@ -1,102 +1,103 @@
 package Bio::Data::Plasmid::CloningVector; 
-our $VERSION = '1.00';
 
-# Stephen G. Lenk (C) 2006. All rights reserved. 
+our $VERSION = '2.2';
 
+#
+# Tim Wiggin, Stephen G. Lenk (C) 2006.
+#
 # This program is free software; you can redistribute it and/or 
 # modify it under the same terms as Perl itself.
-
-# Licenced under the Artistic Licence.
-
+#
+# Licensed under the Perl Artistic License.
+#
 # This software comes with no guarantee of usefulness. 
 # Use at your own risk. Check any solutions you obtain. 
-# Stephen G. Lenk assumes no responsibility for the use of this software.
-
-
-# Use: cloning_vector_data ( $vector_name,  # vector name (i.e. pET-32a)
-#                            $re_ra,        # restriction enzyme pattern
-#                            $re_name_rh,   # names of restriction enzymes
-#                            $ecut_loc_ra,  # cut location in enzyme
-#                            $vcut_loc_ra ) # cut location in vector
-
-# Returns: 0=fails (vector not found), 1=success
-
+#
+# Neither Stephen G. Lenk or Tim Wiggin assume responsibility 
+# for the use of this software.
+#
+# Use: cloning_vector_data ( 
+#          $vector_file_name,  # vector file name 
+#          $re_ra,             # restriction enzyme site patterns
+#          $re_name_rh,        # names of restriction enzymes
+#          $ecut_loc_ra,       # absolute cut location in enzyme site
+#          $vcut_loc_ra )      # frame cut location (0, 1, 2) in vector
+#
+#
+# Returns: 0 = fails (file not found or bad data) 
+#          1 = success
+#
+# File format: 
+#
+#    '#' at start of line is a comment
+#    Blank lines with no characters (just <cr> are permitted)
+#    Data lines are tab separated by item:
+#
+# Name  Sequence  Cut position in site sequence  Cut position in vector frame
+#
+# MCPRIMERS_DATA_DIR - if this environments variable is defined, 
+#                      it is a file path prefix for the vector data file.
+#
+# Revision history:
+# 
+#    2.2 - changed to read a tab-seperated text file,
+#          matches 2.2 release of MCPrimers
+#
  
 use strict;
 use warnings;
 
 sub cloning_vector_data {
 
-    my ( $vector_name,  # vector name (i.e. pET-32a)
-         $re_ra,        # restriction enzymes pattern
-         $re_name_rh,   # names of restriction enzymes
-         $ecut_loc_ra,  # cut location in enzyme
-         $vcut_loc_ra   # cut location in vector
+    my ( $vector_file_name,  # vector file name 
+         $re_ra,             # restriction enzyme site patterns
+         $re_name_rh,        # names of restriction enzymes
+         $ecut_loc_ra,       # absolute cut location in enzyme site 
+         $vcut_loc_ra        # frame cut location (0, 1, 2) in vector 
        ) = @_;  
 
+    # define name of text file
+    if (defined $ENV{"MCPRIMERS_DATA_DIR"}) {
 
-    # check name of cloning vector
-    if ($vector_name eq 'pET-32a') {
+        if ($^O =~ /^MSW/) { 
 
-        push @{$re_ra}, 'TTCGAA';      # NspV       (TT^CGAA) (labrat site) 
-        push @{$re_ra}, 'AGATCT';      # BglII      (A^GATCT)
-        push @{$re_ra}, 'GGTACC';      # KpnI       (GGTAC^C)
-        push @{$re_ra}, 'CCATGG';      # NcoI       (C^CATGG)
-        push @{$re_ra}, 'GATATC';      # EcoRV      (GAT^ATC)
-        push @{$re_ra}, 'GGATCC';      # BamHI      (G^GATCC)
-        push @{$re_ra}, 'GAATTC';      # EcoRI      (G^AATTC)
-        push @{$re_ra}, 'GAGCTC';      # SacI       (GAGCT^C)
-        push @{$re_ra}, 'GTCGAC';      # SalI       (G^TCGAC)
-        push @{$re_ra}, 'AAGCTT';      # HindIII    (A^AGCTT)
-        push @{$re_ra}, 'GCGGCCGC';    # NotI, EagI (GC^GGCCGC)
-        push @{$re_ra}, 'CTCGAG';      # AvaI, XhoI (C^TCGAG)   
-    
-        $re_name_rh->{TTCGAA}   = 'NspV';
-        $re_name_rh->{AGATCT}   = 'BglII';
-        $re_name_rh->{GGTACC}   = 'KpnI';
-        $re_name_rh->{CCATGG}   = 'NcoI';
-        $re_name_rh->{GATATC}   = 'EcoRV';
-        $re_name_rh->{GGATCC}   = 'BamHI';
-        $re_name_rh->{GAATTC}   = 'EcoRI';
-        $re_name_rh->{GAGCTC}   = 'SacI';
-        $re_name_rh->{GTCGAC}   = 'SalI';
-        $re_name_rh->{AAGCTT}   = 'HindIII';
-        $re_name_rh->{GCGGCCGC} = 'NotI, EagI';
-        $re_name_rh->{CTCGAG}   = 'AvaI, XhoI'; 
-    
-        push @{$ecut_loc_ra}, 2;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 5;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 3;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 5;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 1;
-        push @{$ecut_loc_ra}, 2;
-        push @{$ecut_loc_ra}, 1;    
-    
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 0;
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 0;
-        push @{$vcut_loc_ra}, 1;
-        push @{$vcut_loc_ra}, 1;
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 2;
-        push @{$vcut_loc_ra}, 0;
-        push @{$vcut_loc_ra}, 2;  
+            # Microsoft
+            $vector_file_name = $ENV{"MCPRIMERS_DATA_DIR"} . "\\" . $vector_file_name;
+        }
+        else {
 
-        return 1;
+            # Other (OSX, Linux, Unix)
+            $vector_file_name = $ENV{"MCPRIMERS_DATA_DIR"} . "/" . $vector_file_name;
+        }
+    } 
+
+    # open text file
+    open(IN_FILE, $vector_file_name) or return 0;
+    my @fileArray = <IN_FILE>;
+    close(IN_FILE);
+
+    # extract data from file aray
+    foreach my $row (@fileArray){
+  
+        if (substr($row,0,1) eq "#" or length $row == 1) {
+        
+            # skip coments and blank lines
+            next;
+        }
+        elsif ($row =~ /(.+)\t([ATCGatcg]+)\t(\d+)\t(\d+)/) {
+  
+            # use valid data lines
+            $re_name_rh->{$2} = $1;     # name keyed by base sequence
+            push @{$re_ra}, $2;         # base sequence in site
+            push @{$ecut_loc_ra}, $3;   # cut location in enzyme
+            push @{$vcut_loc_ra}, $4;   # cut location
+        }
+        else {
+
+            return 0;
+        }
 
     }
-    else {
 
-        return 0;
-    }   
+    return 1;
 }
-
-return 1;

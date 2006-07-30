@@ -1,14 +1,17 @@
 # test.pl - test Bio::MCPrimers package
-$VERSION='2.1'; 
 
-# Author: Steve Lenk, May 2006
+$VERSION='2.2'; 
+
+# Author: Steve Lenk - 2006
 
 # Copyright (C) Stephen G. Lenk 2006.
-# Artistic License applied.
+# Perl Artistic License applied.
 
 # Use:    perl test.pl
 # Output: OK or Not OK
-# Return: 0 = OK, 1 = Not OK
+# Return: 0 = OK, 1 = Not OK (shell script like output value)
+
+# Current test.pl for V2.2 of MCPrimers
 
 use strict;
 use warnings;
@@ -16,7 +19,7 @@ use warnings;
 # use HIcysS.fa to generate a new test file
 my $test = 1;
 print "Test $test - ";
-my $status = system('perl -Ilib mcprimers.pl -vector pET-32a -clamp 3prime -shift 24 HIcysS.fa > generated_file.pr3');
+my $status = system('perl -Ilib mcprimers.pl -vector pET-32a.txt -clamp 3prime -shift 24 HIcysS.fa > generated_file.pr3');
 if ($status != 0) {
     die "\n\nError in system call to mcprimers.pl - is primer3 available?\n\n";
 }
@@ -102,9 +105,9 @@ foreach (keys %generated) {
 }
 
 # clean up
-unlink 'generated_file.pr3';
+unlink("generated_file.pr3");
 
-#simple presentation of results
+# simple presentation of results
 if ($status == 1) {
     print "OK\n";
     exit 0;
