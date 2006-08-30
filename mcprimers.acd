@@ -1,0 +1,72 @@
+application: mcprimers [
+  documentation: "Designs PCR primers for molecular cloning"
+  groups: "Nucleic:Primers"
+]
+
+section: input [
+  information: "Input section"
+  type: "page"
+]  
+
+  datafile: vectorfile  [
+    parameter: "Y"
+    information: "Vector file"
+    help: "Vector file using CloningVector format"
+  ]
+
+  infile: infile  [
+    parameter: "Y"
+    information: "FASTA sequence"
+    help: "FASTA DNA only"
+  ]  
+
+endsection: input
+
+section: advanced [
+  information: "Advanced section"
+  type: "page"
+]
+
+  string: primerfile [
+    information: "Primer3 parameter file"
+    help: "Boulder format Primer3 parameter file name"
+    additional: "Y"    
+  ]
+
+  string: excluedsites [
+    information: "Excluded sites"
+    help: "Comma seperated list of excluded sites"
+    additional: "Y"    
+  ]
+
+  list: clamp [
+    information: "GC clamping"
+    help: "GC clamping"
+    values: "both;3prime"
+    default: "both"
+    additional: "Y"    
+  ]
+  
+  integer: shift  [
+    default: 0
+    minimum: 0
+    maximum: 30
+    information: "Shift search into sequence"
+    help: "Shift search into sequence"
+    additional: "Y"    
+  ]
+  
+endsection: advanced
+
+section: output [
+  information: "Output section"
+  type: "page"
+]
+
+  outfile: outfile  [
+    parameter: "Y"
+    information: "Output report"
+    help: "Output report"
+  ]
+  
+endsection: output

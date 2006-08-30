@@ -1,12 +1,12 @@
-README for MCPrimers.pm V2.2, mcprimers.pl, and CloningVector.pm
+README for MCPrimers.pm V2.3, mcprimers.pl, mcprimers_gui.pl,
+and CloningVector.pm
 
 1. Authorship and copyright
 
 Authors:   MCPrimers:     Stephen G. Lenk, 2005, 2006.
            CloningVector: Tim Wiggin and Steve Lenk 2006
-
            
-Copyright: Stephen G. Lenk (C) 2005, 2006 on MCPrimers
+Copyright: Stephen G. Lenk (C) 2005, 2006 on MCPrimers.pm
            Tim Wiggin and Steve Lenk (C) 2006 on CloningVector.pm
 
 This program is free software; you can redistribute it and/or  
@@ -15,15 +15,13 @@ Licenced under the Perl Artistic Licence.
 
 ############################################################################
 # This software comes with no guarantee of usefulness.
-# Use at your own risk.
-# There is no guarantee this code will find the best solution, or even any 
-# solution, or that the solutions it finds will be correct or useful to 
-# you.
+# There is no guarantee this code will find the best solution, or even 
+# any solution, or that the solutions it finds will be correct or useful 
+# to you.
 #
 # Use at your risk. Check any solutions you obtain.
 #
 # Stephen G. Lenk assumes no responsibility for the use of this software.
-
 # Tim Wiggin assumes no responsibility for the use of this software.
 #
 ############################################################################
@@ -35,71 +33,61 @@ Whitehead Institute for Biomedical Research. All rights reserved.
 2. Installation
 
 MCPrimers.pm     - Place into Bio/MCPrimers.pm
+                   Use the perl site directory for Activestate
 CloningVector.pm - Place into Bio/Data/Plasmid/CloningVector.pm
-mcprimers.pl     - Front end script. Make available to users.
-pET-32a.txt      - Use in working dir or specify MCPRIMERS_DATA_DIR
-                 - It is OK to make your own plasmid data files
-PRIMER3_DIR      - Set this environment variable to point to diectory 
-                   containing Primer3 executable.
+                   Use the perl site directory for Activestate
 
-If PRIMER3_DIR is not set, MCPrimers will set it to '.' by default.
+mcprimers.pl     - Front end CLI script. Make available to users.
+mcprimers_gui.pl - GUI. Make available to users.
+
+You WILL want to wrap the .pl files with a shell script or batch file
+so that the environment variables can be set. Remember that pl2bat
+on XP (Activestate) will make a batch file. You can edit the resulting
+file and add environment variables. Example files are provided.
+
+pET-32a.txt   - Put in data dir.
+                It is OK to make your own vector data files.
+
+MCPRIMER_DIR  - Set this environment variable to point to the directory 
+                containing mcprimers.pl                   
+PRIMER3_DIR   - Set this environment variable to point to the directory 
+                containing the Primer3 executable.
+
+MCPrimers defaults environment variables to its starting directory.
+
+mcprimers.acd - provided for EMBOSS users
 
 MSWindows - use primer3.exe
 Other OS  - use primer3_core
 
-The code can be run in the download directory 
-if an installation is not
-desired.
+It is easiest to test and install mcprimers.pl & modules first
+then test and install the GUI.
 
+Note: Use perl -Ilib if modules are still in local lib directory.
 
 3. Purpose
 
 Creates molecular cloning PCR primer pairs for a given gene so that the
-gene can be directionally inserted into a vector. 
+gene can be directionally inserted into a vector, which is defined in
+an external data file.
 
 Solver is generic, restriction enzymes and their order in the vector 
 are specified in the data file specified.
 
-4. Use
+4. Test Results (V2.3)
 
-Use: perl mcprimers.pl [options] -vector file_name orf.fasta > result.pr3
-
-Options: [-h] [-shift search_shift] [-clamp (both | 3prime)]
-
--h        help
--vector   cloning vector file name
--shift    integer value to shift search of left RE match into gene
-          use -shift 12 (or other value) if initial search fails
--clamp    GC clamp
-          'both' will clamp last NT at both ends to G or C (default)
-          '3prime' will clamp last NT on 3' ends to G or C
-          
-Example:  
- 
-perl mcprimers.pl -vector pET-32a.txt -shift 12 \\
-                  -clamp 3prime cysS.fa > cysS.pr3
-
-Note:        Use perl -Ilib if the modules are still in the local lib dir.
-
-Limitations: Does not account for redundancy codes in FASTA files.
-
-Note:        These runs use intermediate files. This means that
-             CGI or other use that can overwrite these files is
-             a bad idea. 
-
-5. Test Results (V2.2)
+t/test.pl will test the release when run from a command line
 
 Passes test.pl clean on Windows XP with Activestate Perl 5.8.7
-
 Passes test.pl clean on OSX with Activestate Perl 5.8.8
-
 Passes test.pl clean on Linux with the standard installed Perl 5.8.7 
 
-Note that HIcysS.fa and pet-32a.txt file need to be written out in 
-the right text format prior to running test.pl (ie. MSW or Unix)
+On OSX with non-Activestate Perl (5.8.1) there are different 
+results each time mcprimers is run, so ... use Activestate Perl!
 
-OSX with non-Activestate Perl (5.8.1) there are different results each time 
-from mcprimers !?
+The GUI was tested (OK) on XP and OSX.
+
+mcprimers.acd was checked on XP with acdc.exe and acdverify.exe
 
 ---------------
 

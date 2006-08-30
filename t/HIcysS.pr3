@@ -1,15 +1,20 @@
 
 |------------------------------------------------------------------|
-| MCPrimers V2.2 Copyright (c) 2005,2006 Stephen G. Lenk           |
-| CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |                         |
-| Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |  
+| MCPrimers V2.3 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
+| Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Cloning vector    = pET-32a.txt
+Date              = Sat Aug 19 22:46:35 2006
+Sequence file     = HIcysS.fa
+Results file      = generated_file.pr3
+Primer3 file      = 
+Cloning vector    = pet-32a.txt
 Clamp flag        = 3prime
 Shift flag        = 24
-Original sequence =
+Excluded sites    = 
+Original sequence:
 TTTCATTTTACGAGCTTAAAAATGCTAAAAATTTTCAATACCTTAACGAGAGAAAAAGAA
 ATCTTTAAACCTATCCACGAAAATAAAGTGGGAATGTATGTTTGCGGCGTCACTGTTTAT
 GATTTGTGCCATATCGGCCATGGACGCACTTTTGTGTGTTTTGATGTGATTGCCCGTTAT
@@ -1126,7 +1131,7 @@ primer3 release 1.0
 Start codon at  21
 Stop codon  at  1398
 Left RE site  = KpnI (GGTACC)
-Right RE site = AvaI, XhoI (CTCGAG)
+Right RE site = AvaI-XhoI (CTCGAG)
 
 Primer3 analysis of PCR primers designed by MCPrimers:
 
@@ -2086,7 +2091,7 @@ primer3 release 1.0
 Start codon at  21
 Stop codon  at  1398
 Left RE site  = KpnI (GGTACC)
-Right RE site = AvaI, XhoI (CTCGAG)
+Right RE site = AvaI-XhoI (CTCGAG)
 
 Primer3 analysis of PCR primers designed by MCPrimers:
 

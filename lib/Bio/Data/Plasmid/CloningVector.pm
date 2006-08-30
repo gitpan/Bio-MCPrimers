@@ -1,6 +1,6 @@
 package Bio::Data::Plasmid::CloningVector; 
 
-our $VERSION = '2.2';
+our $VERSION = '2.3';
 
 #
 # Tim Wiggin, Stephen G. Lenk (C) 2006.
@@ -23,7 +23,6 @@ our $VERSION = '2.2';
 #          $ecut_loc_ra,       # absolute cut location in enzyme site
 #          $vcut_loc_ra )      # frame cut location (0, 1, 2) in vector
 #
-#
 # Returns: 0 = fails (file not found or bad data) 
 #          1 = success
 #
@@ -42,7 +41,7 @@ our $VERSION = '2.2';
 # 
 #    2.2 - changed to read a tab-seperated text file,
 #          matches 2.2 release of MCPrimers
-#
+#    2.3 - updated version to match MCPrimers 2.3
  
 use strict;
 use warnings;
