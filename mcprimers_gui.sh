@@ -1,7 +1,7 @@
 #!/bin/sh
 PRIMER3_DIR=/usr/local/bin
 export PRIMER3_DIR
-MCPRIMERS_DIR=/usr/local/bin
+MCPRIMERS_DIR=~/desktop/Bio-MCPrimers-2.4
 export MCPRIMERS_DIR
-/usr/local/bin/mcprimers_gui.pl
+perl mcprimers_gui.pl
 

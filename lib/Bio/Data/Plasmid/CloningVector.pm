@@ -1,6 +1,6 @@
 package Bio::Data::Plasmid::CloningVector; 
 
-our $VERSION = '2.3';
+our $VERSION = '2.4';
 
 #
 # Tim Wiggin, Stephen G. Lenk (C) 2006.
@@ -42,7 +42,8 @@ our $VERSION = '2.3';
 #    2.2 - changed to read a tab-seperated text file,
 #          matches 2.2 release of MCPrimers
 #    2.3 - updated version to match MCPrimers 2.3
- 
+#    2.4 - updated version to match MCPrimers 2.4
+
 use strict;
 use warnings;
 

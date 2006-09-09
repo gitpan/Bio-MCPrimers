@@ -2,9 +2,9 @@
 
 # Stephen G. Lenk (c) 2006
 # LICENCED UNDER PERL ARTISTIC LICENCE
-# See Bio/Mcprimers.pm for POD
+# See Bio/MCPrimers.pm for POD
 
-$VERSION = '2.3'; 
+$VERSION = '2.4'; 
 
 use Tk;
 use IPC::Open3;
@@ -21,13 +21,15 @@ use warnings;
 ##############################
 
 my $mw;                        # main window
-my $app_title = 'MCPrimers';
+my $app_title = "MCPrimers v2.4 GUI";
 
 my $menubar_frame;             # frames
 my $right_frame;
 my $bottom_frame;
 my $para_frame;
-my $scale_frame;
+my $start_scale_frame;
+my $stop_scale_frame;
+my $maxchanges_frame;
 my $p3_frame;
 my $fname_frame;
 my $vec_frame;
@@ -45,7 +47,9 @@ my $p3_check;
 my $fname_message;
 
 my $clamp = 'both';            # parameters
-my $shift = 0;                
+my $searchpaststart = 0;
+my $searchbeforestop = 0;
+my $maxchanges = 3;
 
 my $vector_loaded = 0;         # state
 my $seq_loaded = 0;
@@ -74,7 +78,7 @@ BEGIN {
 
     # check MCPRIMERS_DIR
     if (defined $ENV{MCPRIMERS_DIR}) {
-        $mcprimers_dir = $ENV{MCPRIMERS_DIR};
+        $mcprimers_dir = $ENV{MCPRIMERS_DIR};  
     }  
     else {
         $mcprimers_dir = '.';
@@ -82,7 +86,7 @@ BEGIN {
 }
 
 END {
-    # intentionally empty		
+    # intentionally empty       
 }
 
 ###################################################################
@@ -99,10 +103,9 @@ $filedialog=$mw->FileSelect(-title     => 'Select File',
                             -takefocus => 1);
 &define_help_text();
 &create_text();
-&create_right();
 &create_buttons();
+&create_right();
 &create_seq();
-&display_wd();
 
 $mw->resizable(0,0);
 $mw->configure(-takefocus);
@@ -117,96 +120,124 @@ sub create_text {
     $text_frame = $mw->Frame->pack(-pady=>5, -side=>'top', -anchor=>'nw');
     $text_message = $text_frame->Message(
         -width => 600,
-        -text  => "First load vector file and DNA sequence",
-        -font  => 'Helvetica 12 bold',
-        );
+        -text  => "First load a vector file and a DNA nucleotide sequence in FASTA format",
+        -font  => 'Helvetica 12 bold');
     $text_message->pack(-anchor=>'nw', -padx=>20);
 }
 
 ###################################################################
 
 sub create_right {
-        
+
     $right_frame = $mw->Frame->pack(-pady=>0, -side=>'right', -anchor=>'nw');
-	
- 	$fname_frame = $right_frame->Frame->pack(-padx=>5,
-                                             -pady=>2,
-                                             -anchor=>'nw');
-	$fname_message = $fname_frame->Message(
+    
+    
+    $fname_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');
+    $fname_message = $fname_frame->Message(
         -width => 200,
         -text  => "FASTA: undefined",
-        -font  => 'Helvetica 10 bold',
-        )->pack(-anchor=>'nw');    
-    $para_frame = $right_frame->Frame->pack(-padx=>5,
-                                            -pady=>2,
-                                            -anchor=>'nw');
-    $para_frame->Message(
-        -text  => "GC clamping",
-        -font  => 'Helvetica 10 bold',
-        -width => 200,
-        )->pack(-anchor=>'nw');
-    $para_frame->Radiobutton (
-        -text     => 'GC clamp 3\' and 5\'',
-        -variable => \$clamp,
-        -value    => 'both',
-        -font => 'SmallItem',)->pack(-padx => 5, -anchor=>'nw');
-    $para_frame->Radiobutton (
-        -text     => 'GC clamp 3\' only  ',
-        -variable => \$clamp,
-        -value    => '3prime',
-        -font => 'SmallItem',)->pack(-padx => 5, -anchor=>'nw');
- 
+        -font  => 'Helvetica 10 bold')->pack(-anchor=>'nw');    
+                                               
 
-    $p3_frame = $right_frame->Frame->pack(-padx=>5,
-                                          -pady=>2,
-                                          -anchor=>'nw');
-    $p3_frame->Message(
-        -text  => "Primer3 file",
+    $start_scale_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');
+    $start_scale_frame->Message(
+        -text  => "Search past start codon",
         -font  => 'Helvetica 10 bold',
-        -width => 200,
-        )->pack(-anchor=>'nw');
-    $p3_check = $p3_frame->Checkbutton (
-        -text     => 'Unspecified',
-        -variable => \$p3_used,
-        -state    => 'disabled',
-        -font => 'SmallItem',)->pack(-padx => 5, -anchor=>'nw');
-       
-
-    $scale_frame = $right_frame->Frame->pack(-padx=>5,
-                                             -pady=>2,
-                                             -anchor=>'nw');
-    $scale_frame->Message(
-        -text  => "Search shift",
-        -font  => 'Helvetica 10 bold',
-        -width => 200,
-        )->pack(-anchor=>'nw');  
-    $scale_frame->Scale(
+        -width => 200)->pack(-anchor=>'nw');  
+    $start_scale_frame->Scale(
         -resolution   => 1,
-        -from         => 30,
+        -from         => 60,
         -to           => 0,
-        -variable     => \$shift,
+        -variable     => \$searchpaststart,
         -sliderlength => 10,
         -length       => 140,
         -orient       => 'horizontal',
         -showvalue    => 1,
         -state        => 'active',
-        -font         => 'Helvetica 10 bold',)->pack(-padx => 5, -anchor=>'nw');										 
-											 										 
-    $vec_frame = $right_frame->Frame->pack(-padx=>5,
-                                           -pady=>2,
-                                           -anchor=>'nw');   
+        -font         => 'Helvetica 10 bold',)->pack(-padx => 5, -anchor=>'nw');                                         
+    
+    
+    $stop_scale_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');                                          
+    $stop_scale_frame->Message(
+        -text  => "Search before stop codon",
+        -font  => 'Helvetica 10 bold',
+        -width => 200)->pack(-anchor=>'nw');  
+    $stop_scale_frame->Scale(
+        -resolution   => 1,
+        -from         => 60,
+        -to           => 0,
+        -variable     => \$searchbeforestop,
+        -sliderlength => 10,
+        -length       => 140,
+        -orient       => 'horizontal',
+        -showvalue    => 1,
+        -state        => 'active',
+        -font         => 'Helvetica 10 bold',)->pack(-padx => 5, -anchor=>'nw');
+
+    
+    $maxchanges_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');                                          
+    $maxchanges_frame->Message(
+        -text  => "Maximum mutagenesis",
+        -font  => 'Helvetica 10 bold',
+        -width => 200,
+        )->pack(-anchor=>'nw');  
+    $maxchanges_frame->Scale(
+        -resolution   => 1,
+        -from         => 3,
+        -to           => 0,
+        -variable     => \$maxchanges,
+        -sliderlength => 10,
+        -length       => 140,
+        -orient       => 'horizontal',
+        -showvalue    => 1,
+        -state        => 'active',
+        -font         => 'Helvetica 10 bold',)->pack(-padx => 5, -anchor=>'nw');
+
+
+    $para_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');
+    $para_frame->Message(
+        -text  => "GC clamping",
+        -font  => 'Helvetica 10 bold',
+        -width => 200)->pack(-anchor=>'nw');
+    $para_frame->Radiobutton (
+        -text     => 'GC clamp 3\' and 5\'',
+        -variable => \$clamp,
+        -value    => 'both',
+        -font => 'SmallItem')->pack(-padx => 5, -anchor=>'nw');
+    $para_frame->Radiobutton (
+        -text     => 'GC clamp 3\' only  ',
+        -variable => \$clamp,
+        -value    => '3prime',
+        -font => 'SmallItem')->pack(-padx => 5, -anchor=>'nw');
+ 
+ 
+    $p3_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');        
+    $p3_frame->Message(
+        -text  => "Primer3 file",
+        -font  => 'Helvetica 10 bold',
+        -width => 200)->pack(-anchor=>'nw');
+    $p3_check = $p3_frame->Checkbutton (
+        -text     => 'Unspecified',
+        -variable => \$p3_used,
+        -state    => 'disabled',
+        -font => 'SmallItem')->pack(-padx => 5, -anchor=>'nw');
+
+                    
+    $vec_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');   
     $vec_message = $vec_frame->Message(
         -width => 200,
         -text  => "\n",
-        -font  => 'Helvetica 10 bold',
-        )->pack(-anchor=>'nw'); 
+        -font  => 'Helvetica 10 bold')->pack(-anchor=>'nw'); 
+        
 }
 
 ###################################################################
 
 sub create_buttons {
     
-    $bottom_frame = $mw->Frame->pack(-pady=>15, -side=>'bottom');
+    $bottom_frame = $mw->Frame->pack(-pady=>15, 
+                                     -side=>'bottom', 
+                                     -anchor => 'w');
     
     $bottom_frame->Button(
         -text    => 'Load Vector',
@@ -261,12 +292,12 @@ sub create_buttons {
 
 sub create_seq {
  
-    $seq_frame = $mw->Frame->pack(-pady=>5, -side=>'bottom');       
+    $seq_frame = $mw->Frame->pack(-pady=>5, -side => 'bottom');       
     $seq_text = $seq_frame->Scrolled('ROText');
     $seq_text->configure( -scrollbars => 'e',
-                          -height     => 42,
-                          -width      => 100,
-                          -font       => 'Courier 10',
+                          -height     => 45,
+                          -width      => 96,
+                          -font       => 'Courier 12',
                           -background => 'white');
     $seq_text->pack(-padx=>15);
 }
@@ -275,12 +306,12 @@ sub create_seq {
 
 sub execute_mcprimers {
  
-	&clear_text();   
+    &clear_text();   
     my $excluded = '';
     @result = (); 
     
     if ($vector_loaded and $seq_loaded) {
-			
+            
         $text_message->configure(-text=>
           "Executing MCPrimers - please wait (probably several minutes)");
         $mw->update;
@@ -298,52 +329,47 @@ sub execute_mcprimers {
         if ($excluded ne '') { 
             $x = "-excludedsites=" . substr($excluded, 1);
         }      
-        my $c = "-clamp=$clamp";
-        my $s = "-shift=$shift";
-        my $p = '';
+        my $c      = "-clamp=$clamp";
+        my $sleft  = "-searchpaststart=$searchpaststart";
+        my $sright = "-searchbeforestop=$searchbeforestop";
+        my $p      = '';
+        my $mx     = "-maxchanges=$maxchanges";
         if (defined $p3_name and $p3_name ne '' and $p3_used == 1) {
-            $p="-primerfile=\"$p3_name\"";
+            $p = "-primerfile=\"$p3_name\"";
         }
-		
-		my $cmd;
+        
+        my $start;
         if ($^O =~ /^MSW/) { 
-				
-			# Microsoft
-		    my $start = "perl $mcprimers_dir\\mcprimers.pl -stdout";  
-            $cmd = "$start $x $c $p $s \"$vector_name\" \"$seq_name\" ";
-            my $pid = open3(\*WTRFH, \*RDRFH, \*RDRFH, $cmd);	
-		}	
-		else {
-				
-			# non-Microsoft
-		    my $start = "perl $mcprimers_dir/mcprimers.pl -filter";  
-            $cmd = "$start $x $c $p $s \"$vector_name\" ";
-            my $pid = open3(\*WTRFH, \*RDRFH, \*RDRFH, $cmd);
-            foreach (@seq) {
-                print WTRFH $_;
-            }   
-            close WTRFH;
+            $start = "perl $mcprimers_dir\\mcprimers.pl -stdout";
         }
-		print "$cmd\n";		
+        else {
+            $start = "perl $mcprimers_dir/mcprimers.pl -stdout";    
+        }
+        my $cmd = "$start $x $c $p $mx $sleft $sright \"$vector_name\" \"$seq_name\" ";
+        #print STDERR "$cmd\n";
+        
+        my $pid = open3(\*WTRFH, \*RDRFH, \*RDRFH, $cmd);   
+        close(WTRFH);
+        
         $mw->update;
-		
- 		my $m;      
+        
+        my $m;      
         my $line  = <RDRFH>;
-		
+        
 RESULTS:        
         while (defined $line) {
-			
-			chop($line);
-			if ($^O =~ /^MSW/) { chop $line; }
+            
+            chop($line);
+            if ($^O =~ /^MSW/) { chop $line; }
             push @result, "$line\n";
-			
+            
             if ($line =~ /Sorry/   or 
-			    $line =~ /Error/   or 
-				$line =~ /Problem/ or 
-				$line =~ /not available/) { 
-						
+                $line =~ /Error/   or 
+                $line =~ /Problem/ or 
+                $line =~ /not available/) { 
+                        
                 $m = $line;
-				last RESULTS;
+                last RESULTS;
             }
             if ($line =~ /.*Solution # (\d*)/) {
                 $m = "Done - $1 solutions found";
@@ -366,7 +392,7 @@ RESULTS:
 
 sub load_vector_file {
         
-	&clear_text();
+    &clear_text();
     if ($vector_loaded == 1) {
     
         # can't figure out how to properly destroy old widgets
@@ -377,7 +403,7 @@ sub load_vector_file {
     
     $text_message->configure(-text=>"Select vector file");
     $vector_loaded = 0;
-	
+    
     my $status;
     
     # popup get file name
@@ -396,7 +422,7 @@ sub load_vector_file {
     }
     
     if ($status == 0) {
-			
+            
         my $m = '';
         if (defined $vector_name) { 
             $m = "Error: Can\'t load \'$vector_name\'";
@@ -405,7 +431,7 @@ sub load_vector_file {
             $m = 'Load vector cancelled';
         }
         $text_message->configure(-text=>$m);
-		
+        
         $vector_name = $old_name;
     }
     else {
@@ -431,7 +457,7 @@ sub load_vector_file {
         if ($vector_loaded and $seq_loaded) {
             $sub_button->configure(-bg=>'light green');     
         }
-		$short_name =~ /(.+)\..+/;
+        $short_name =~ /(.+)\..+/;
         $vec_message->configure(-text  => "\n$1 cloning sites",); 
     }
 }
@@ -444,9 +470,9 @@ sub load_seq_file {
     my $status;
     my $line;
     my $seq_fh;
-	@seq = ();
-	&clear_text();  
-	
+    @seq = ();
+    &clear_text();  
+    
     # popup get file name
     my $old_name = $seq_name;
     $seq_name = $filedialog->Show;
@@ -485,7 +511,7 @@ sub load_seq_file {
         my $short_name = $1;
 
         $text_message->configure(-text=>"FASTA file $short_name loaded");
-		$fname_message->configure(-text=>"FASTA: $short_name");
+        $fname_message->configure(-text=>"FASTA: $short_name");
     }        
 
     if ($vector_loaded and $seq_loaded) {
@@ -509,9 +535,9 @@ sub write_text {
 
     &clear_text();
     $mw->update;
-	
+    
     foreach (@text) {
-		my $l = $_;
+        my $l = $_;
         $seq_text->Insert($l);
     }
 
@@ -531,7 +557,7 @@ sub about {
 
 sub help {
 
-	&clear_text();
+    &clear_text();
     my @h = ();
     foreach (split "\n", $help_text) {
         push @h, "$_\n";
@@ -641,26 +667,31 @@ sub load_primer3 {
 sub define_help_text {
 
 $help_text = qq/
-MCPrimers GUI Help Text - V2.3
+MCPrimers GUI Help Text - V2.4
 
 A vector (plasmid) file and a FASTA file must be loaded before execution.
 
 - The Execute button is greyed out until a vector file and a FASTA file are loaded.
   
-- Load a vector file with the Vector button.
-  This provides information about the vector.
-  This will make the cloning site checklist appear.
-  Checked sites are used. 
-  Unchecked sites are not used.
-  All sites are checked initially.
+- Load a vector file with the Load Vector button. This provides information about the vector.
+  The cloning site checklist appear. Checked sites are used. Unchecked sites are not used.
+  All sites are checked initially. The file pet-32a.txt ships with the application.
+  Feel free to make your own plasmid vector files using the same format.
 
-- Load an in-frame FASTA file with the FASTA button.
-  Best to use 21 NT (or more) upstream and 200 downstream.
+- Load an in-frame FASTA file with the Load FASTA button. IN-FRAME IS CRITICAL!
+  For prokaryotes, use 21 NT (or more) upstream and ~200 downstream or just the ORF.
+  For eukaryotes, use either cDNA with UTRs, or just the ORF depending on the clone you want.
   The FASTA will load into the text window.
 
-- The Primer3 button allows you to specify a Primer3 parameter file.
-  When you have specified the file, a CheckButton will appear
-  with the file name. You can select if you wish to use the file.
+- GC clamping directs the type of GC clamping applied in the search.
+
+- Search shifts allow primers to be located inside the ORF.
+  Search past start codon goes into the ORF downstream from the start codon.
+  Search before stop codon goes into the ORF upstream from the stop codon.
+
+- Maxchanges allows the number of permitted mutagenic changes to be reduced.
+
+- The Select Primer3 button allows you to specify a Primer3 parameter file.
 
 - The Execute button will turn green when a vector file and a plasmid file are specified.
 
@@ -674,30 +705,19 @@ A vector (plasmid) file and a FASTA file must be loaded before execution.
 
 - The Help button displays this text.
 
-- The Exit button exits the GUI.
+- The Exit button exits the GUI, no questions asked.
 
 Enjoy!
 
-Steve Lenk (c) 2006
-/;
+Steve Lenk (c) 2006/;
 
 }
 
 ####################################################################
 
 sub set_wd {
-		
-    if ($^O =~ /^MSW/) { 
-    
-        # Microsoft
-		my $dir = "$ENV{USERPROFILE}/desktop";
-        chdir($dir);
-    } 
-    else {         
-    
-        # non-Microsoft
-        chdir();
-    }
+        
+    chdir(); 
 }
 
 ####################################################################
@@ -705,8 +725,10 @@ sub set_wd {
 sub display_wd {
 
     use Cwd;
-	my $dir = &getcwd();
-	$text_message->configure(-text=>"Current working directory is $dir");
+    my $dir = &getcwd();
+    if (defined $dir) {
+        $text_message->configure(-text=>"Current working directory is $dir");
+    }
 }
 
 ####################################################################

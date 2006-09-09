@@ -1,5 +1,5 @@
-README for MCPrimers.pm V2.3, mcprimers.pl, mcprimers_gui.pl,
-and CloningVector.pm
+README for MCPrimers.pm V2.4 and
+mcprimers.pl, mcprimers_gui.pl, CloningVector.pm
 
 1. Authorship and copyright
 
@@ -32,30 +32,33 @@ Whitehead Institute for Biomedical Research. All rights reserved.
 
 2. Installation
 
-MCPrimers.pm     - Place into Bio/MCPrimers.pm
-                   Use the perl site directory for Activestate
-CloningVector.pm - Place into Bio/Data/Plasmid/CloningVector.pm
-                   Use the perl site directory for Activestate
+MCPrimers.pm         - Place into Bio/MCPrimers.pm
+                       Use the perl site directory for Activestate
+CloningVector.pm     - Place into Bio/Data/Plasmid/CloningVector.pm
+                       Use the perl site directory for Activestate
 
-mcprimers.pl     - Front end CLI script. Make available to users.
-mcprimers_gui.pl - GUI. Make available to users.
+mcprimers.pl         - Front end CLI script. Make available to users.
+mcprimers_gui.pl     - GUI. Make available to users.
+
+MCPrimers_manual.doc - a Word format user manual.
 
 You WILL want to wrap the .pl files with a shell script or batch file
 so that the environment variables can be set. Remember that pl2bat
 on XP (Activestate) will make a batch file. You can edit the resulting
 file and add environment variables. Example files are provided.
 
-pET-32a.txt   - Put in data dir.
-                It is OK to make your own vector data files.
+pET-32a.txt  - Put in data dir.
+It is OK to make your own vector data files using this format.
 
-MCPRIMER_DIR  - Set this environment variable to point to the directory 
-                containing mcprimers.pl                   
-PRIMER3_DIR   - Set this environment variable to point to the directory 
-                containing the Primer3 executable.
+MCPRIMER_DIR - Set this environment variable to point to the directory 
+               containing mcprimers.pl                   
+PRIMER3_DIR  - Set this environment variable to point to the directory 
+               containing the Primer3 executable.
 
 MCPrimers defaults environment variables to its starting directory.
 
-mcprimers.acd - provided for EMBOSS users
+mcprimers.acd - provided for EMBOSS users 
+                not tested in actual EMBOSS environment
 
 MSWindows - use primer3.exe
 Other OS  - use primer3_core
@@ -74,20 +77,18 @@ an external data file.
 Solver is generic, restriction enzymes and their order in the vector 
 are specified in the data file specified.
 
-4. Test Results (V2.3)
+4. Test Results (V2.4)
 
 t/test.pl will test the release when run from a command line
 
 Passes test.pl clean on Windows XP with Activestate Perl 5.8.7
-Passes test.pl clean on OSX with Activestate Perl 5.8.8
+Passes test.pl clean on MacOSX with Activestate Perl 5.8.8
 Passes test.pl clean on Linux with the standard installed Perl 5.8.7 
-
-On OSX with non-Activestate Perl (5.8.1) there are different 
-results each time mcprimers is run, so ... use Activestate Perl!
 
 The GUI was tested (OK) on XP and OSX.
 
 mcprimers.acd was checked on XP with acdc.exe and acdverify.exe
+mcprimers.acd was NOT checked in an actual EMBOSS environemnt
 
 ---------------
 

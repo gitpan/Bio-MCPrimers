@@ -1,0 +1,122 @@
+NAME
+    Bio::MCPrimers
+
+DESCRIPTION
+    Creates molecular cloning PCR primer pairs for a given gene so that the
+    gene can be directionally inserted into a vector. Solver is generic,
+    restriction enzymes and their order in the vector are specified in the
+    caller.
+
+EXPORT SUBROUTINES
+    sub find_mc_primers
+
+        $orf,            # ATGC string (I use 21 NT upstream, 200 NT downsteam)
+        $flag_hr,        # anonymous hash reference to flags from mcprimers.pl
+        $pr3_hr,         # hash reference to Primer3 Boulder file tags
+        $ecut_loc_ar,    # enzyme cut location array reference from caller
+        $vcut_loc_ar,    # vector cut location array reference from caller
+        @re              # array of restriction enzyme strings from caller
+    
+    Not explicitily exported. Use Bio::MCPrimers::find_mc_primers
+
+    See mcprimers.pl for an example of use and front-end.
+
+INSTALLATION
+        MCPrimers.pm     - Place into lib/Bio/MCPrimers.pm
+        CloningVector.pm - Place into lib/Bio/Data/Plasmid/CloningVector.pm
+        Vector files     - Make vector file directory accessable
+        mcprimers.pl     - Place in a directory where it can be accessed 
+        mcprimers_gui.pl - Place in a directory where it can be accessed 
+        mcprimers.acd    - Put in acd directory for EMBOSS 
+                           Only checked with acdvalidate 
+    
+        MCPrimers_manual.doc    - User documentation
+    
+        MCPRIMER_DIR     - Set this environment variable to point to the 
+                           directory containing mcprimers.pl  
+        PRIMER3_DIR      - Set environment variable to point to Primer3 
+                           executable directory.
+    
+        MSWindows - use primer3.exe
+        Other     - use primer3_core
+ 
+DEPENDENCIES
+    Primer3 used as primer3.exe on MSWindows and as primer3_core otherwise.
+
+    Used by mcprimers.pl, which is used by mcprimers_gui.pl:
+
+        Bio::MCPrimers,
+        Bio::Data::Plasmid::CloningVector.pm
+
+    Used by mcprimers_gui.pl:
+
+        Tk
+        IPC::Open3
+        Tk::FileSelect
+        Tk::ROText
+
+SYNOPSIS
+    mcprimers.pl -help mcprimers.pl -vectorfile pet-32a.txt cyss.fa cyss.pr3
+    mcprimers_gui.pl
+
+    Note: Use perl -Ilib if modules are still in local lib directory.
+
+    See mcprimers.pl for an example of the use of Bio::MCPrimers itself
+
+    Note: mcprimers.pl is a command line program mcprimers_gui.pl is a GUI
+    on top of mcprimers.pl
+
+LIMITATIONS and TROUBLESHOOTING
+    See MCPrimers_manual.doc
+
+    Note: Runs use intermediate files keyed to PID.
+
+BUGS
+    Probably. Use at your own risk.
+
+    This software comes with no guarantee of usefulness. Use at your own
+    risk. Check any solutions you obtain. Stephen G. Lenk assumes no
+    responsibility for the use of this software.
+
+COPYRIGHT
+    Stephen G. Lenk (C) 2005, 2006. All rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    Primer3 is Copyright (c) 1996,1997,1998,1999,2000,2001,2004 Whitehead
+    Institute for Biomedical Research. All rights reserved.
+
+    CloningVector (C) Tim Wiggin and Steve lenk 2006
+
+AUTHOR
+    Stephen G. Lenk, November 2005, 2006.
+
+    slenk@emich.edu
+
+ACKNOWLEDGEMENTS
+    Primer3 is called by this code to verify that the PCR primers are OK.
+
+    Thanks to Tim Wiggin for good ideas at the start. Tim rewrote
+    CloningVector.pm in 2006
+
+    Thanks to Dan Clemans for showing me molecular cloning in the first
+    place. I am using Dr. Clemans's ideas about good MC primers in this
+    code. Any errors in interpretation or implementation are mine.
+
+    Patricia Sinawe found that earlier versions of MCPrimers did not detect
+    out-of-frame solutions and suggested that extra binding sites could be
+    included.
+
+    Ken Youens-Clark has provided guidance in the proper naming of this
+    software so that it functions cooperatively with other Perl modules.
+
+    Anar Khan and Alastair Kerr for their advice at BOSC 2006 regarding
+    EMBOSS compatability, Primer3 parameters, and selective use of sites.
+
+    Other references:
+
+    (1) http://www.premierbiosoft.com/tech_notes/PCR_Primer_Design.html
+
+    (2) http://www.mcb.uct.ac.za/pcroptim.htm
+

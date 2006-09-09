@@ -1,6 +1,6 @@
 package Bio::MCPrimers;
 
-our $VERSION = '2.3';
+our $VERSION = '2.4';
 
 use strict;
 use warnings;
@@ -27,13 +27,14 @@ my $min_size_primer = 18;   # minimum size primer
 my $max_size_primer = 24;   # maximum size primer  
 my $MIN_PRODUCT_SIZE = 60;  # size in bases of minimum sized product
 my $CODON_SIZE = 3;         # likely to stay a constant
+my $MAX_DOTS_IN_A_ROW = 3;  # can't change three codons in a row
 my %left_bad;               # for tracking bad primers during calculation
 my %right_bad;              # and check right as well
 my $fh_write;               # write to Primer3
 my $fh_read;                # read from Primer3
 
 my $p3_in  = "p3_in$$.txt";  # intermediate file for Primer3
-my $p3_out = "pe_out$$.txt"; # intermediate file for Primer3
+my $p3_out = "p3_out$$.txt"; # intermediate file for Primer3
 
 ####################################################################
 
@@ -110,14 +111,24 @@ sub find_mc_primers {
         @re              # array of restriction enzyme strings
        ) = @_;
 
-    my $search_shift = 0;       # permit the search for left primer
-                                # to shift to the right
+    my $searchpaststart = 0;    # permit the search for left primer
+                                # to shift to the right for > 0
+    my $searchbeforestop = 0;   # permit the search for right primer
+                                # to shift to the left for > 0
     my $clamp = 'both';         # GC clamp at both ends 
+    my $max_changes = 3;        # maximum number of allowable changes
+                                # using site-directed mutagenesis
 
     # put flags into local variables, apply defaults
-    if (defined $flag_hr->{search_shift}) { 
-        $search_shift = $flag_hr->{search_shift};
+    if (defined $flag_hr->{searchpaststart}) { 
+        $searchpaststart = $flag_hr->{searchpaststart};
     } 
+    if (defined $flag_hr->{searchbeforestop}) { 
+        $searchbeforestop = $flag_hr->{searchbeforestop};
+    } 
+    if (defined $flag_hr->{maxchanges}) { 
+        $max_changes = $flag_hr->{maxchanges};
+    }   
     if (defined $flag_hr->{clamp}) {
 
         if ($flag_hr->{clamp} eq 'both' or 
@@ -127,14 +138,28 @@ sub find_mc_primers {
         }
     }
     
-    # invoke solver
-    my $answer = _solver($orf, 
-                         $search_shift, 
-                         $clamp, 
+    # invoke solver inside an eval to catch 'die'
+    my $answer;
+    eval {
+        $answer = _solver(
+                         $orf, 
+                         $max_changes,
+                         $searchpaststart,
+                         $searchbeforestop,
+                         $clamp,
                          $pr3_hr,
                          $ecut_loc_ar,
                          $vcut_loc_ar,
                          @re);
+    };
+
+    # catch any problems coming out, clean up, rethrow error message
+    if ($@) {   
+        unlink $p3_in;      
+        unlink $p3_out;
+        die $@; 
+    }
+    
     return $answer;
 }
 
@@ -143,18 +168,19 @@ sub find_mc_primers {
 ### solver function ####
 sub _solver {
 
-    my ($orf,                 # ATGC string
-        $search_shift,        # extra search into start of gene for left primer
-        $clamp,               # both or 3prime
-        $pr3_hr,              # Primer3 Boulder hash
-        $ecut_loc_ar,         # enzyme cut location array reference
-        $vcut_loc_ar,         # vector cut location array reference
-        @re                   # array of RE strings
+    my ($orf,               # ATGC string
+        $max_changes,       # changes to gene for primer
+        $searchpaststart,   # extra search into start of gene for left primer
+        $searchbeforestop,  # extra search into end of gene for right primer
+        $clamp,             # both or 3prime
+        $pr3_hr,            # Primer3 Boulder hash
+        $ecut_loc_ar,       # enzyme cut location array reference
+        $vcut_loc_ar,       # vector cut location array reference
+        @re                 # array of RE strings
        ) = @_;
 
-    my $MAX_CHANGES  = 3;     # changes to gene for primer
-    my $solution_ar  = [];    # solution array reference
-    my @re_matches;           # array of anonymous arrays of RE matches
+    my $solution_ar  = [];  # solution array reference
+    my @re_matches;         # array of anonymous arrays of RE matches
     
     for (my $i = 0; $i < @re; $i++) { 
         $re_matches[$i] = [];
@@ -170,7 +196,8 @@ sub _solver {
     # generate RE matches
     for (my $i=0; $i < @re; $i += 1) {
 
-        my @patterns = _get_re_patterns($re[$i], $MAX_CHANGES); 
+        my @patterns = _get_re_patterns($re[$i], $max_changes);
+
         my @matches  = _get_re_matches($orf, 
                                        $ecut_loc_ar->[$i],
                                        $vcut_loc_ar->[$i],
@@ -191,7 +218,7 @@ sub _solver {
         foreach my $re_pos_l (@{$re_pos_l_ref}) {
                     
             # control where left primer is placed
-            if ($re_pos_l > ($orf_start + $PEEK_IN + $search_shift)) {            
+            if ($re_pos_l > ($orf_start + $PEEK_IN + $searchpaststart)) {            
                 next; 
             }
          
@@ -200,7 +227,7 @@ sub _solver {
             substr($modified_gene, $re_pos_l, length $re_l, $re_l);
             my @left = _create_left_primers($modified_gene, 
                                             $orf_start,
-                                            $search_shift,
+                                            $searchpaststart,
                                             $re_pos_l, 
                                             $re_l,
                                             $clamp);
@@ -210,7 +237,7 @@ sub _solver {
             my $site = 0;
             
             # rest of enzymes left after head has been shifted off
-           while ($site < $num_sites_left) {
+            while ($site < $num_sites_left) {
             
                 my $re_r = $re[$site];
                 my $re_pos_r_ref = $re_matches[$site]; 
@@ -219,16 +246,21 @@ sub _solver {
                 # rest of restriction sites going right in vector
                 RIGHT: foreach my $re_pos_r (@{$re_pos_r_ref}) {
     
-                    if ($re_pos_r < $orf_stop) {  
+                    if ($re_pos_r < 
+                           ($orf_stop + $CODON_SIZE - $searchbeforestop)) {  
                         next RIGHT 
                     }
     
                     # right primers
                     my $more_modified_gene = $modified_gene;
-                    substr($more_modified_gene, $re_pos_r, length $re_r, $re_r);     
+                    substr($more_modified_gene, 
+                           $re_pos_r, 
+                           length $re_r, 
+                           $re_r);     
              
                     my @right = _create_right_primers($more_modified_gene, 
                                                       $orf_stop,
+                                                      $searchbeforestop,
                                                       $re_pos_r, 
                                                       $re_r,
                                                       $clamp);
@@ -244,7 +276,8 @@ sub _solver {
                                               $more_modified_gene, 
                                               $orf_start,
                                               $orf_stop,
-                                              $search_shift,
+                                              $searchpaststart,
+                                              $searchbeforestop,
                                               $pr3_hr);
 
                     # solution obtained if $reply is defined
@@ -321,13 +354,14 @@ sub _handle_reply {
 #### check primers with Primer3 ####
 sub _primers_ok {
 
-    my ($left,          # left primer string
-        $right,         # right primer string
-        $orf,           # ATGC string modified to match primers
-        $orf_start,     # location of start codon
-        $orf_stop,      # location of stop codon
-        $search_shift,  # move search zone into gene from left
-        $pr3_hr         # Primer3 Boulder tags
+    my ($left,             # left primer string
+        $right,            # right primer string
+        $orf,              # ATGC string modified to match primers
+        $orf_start,        # location of start codon
+        $orf_stop,         # location of stop codon
+        $searchpaststart,  # move search zone into gene from left
+        $searchbeforestop, # move search zone into gene from right
+        $pr3_hr            # Primer3 Boulder tags
        ) = @_;
  
     my $ok = 1;
@@ -346,8 +380,9 @@ sub _primers_ok {
   
     # create Boulder file text for Primer3
     my $range = length $orf; 
-    my $excluded_region_start = $orf_start + $PEEK_IN + $search_shift;
-    my $excluded_length = $orf_stop - $excluded_region_start + $CODON_SIZE;
+    my $excluded_region_start = $orf_start + $PEEK_IN + $searchpaststart;
+    my $excluded_length = 
+         $orf_stop - $excluded_region_start + $CODON_SIZE - $searchbeforestop;
 
     # mcprimers calculates these
     my @boulder = 
@@ -367,7 +402,7 @@ sub _primers_ok {
     }
   
     # write intermediate file for Primer3
-    open  $fh_write, ">$p3_in" or die "\nError: Can\'t open $p3_in\n\n"; 
+    open  $fh_write, ">$p3_in" or die "\nError: Can\'t open $p3_in\n"; 
     foreach (keys %{$pr3_hr}) {
         print $fh_write "$_=$pr3_hr->{$_}\n";
     }
@@ -378,14 +413,14 @@ sub _primers_ok {
     my $status;
     $status = system("$primer3_exe -format_output < $p3_in > $p3_out");
     if ($status != 0) {
-        print STDERR "\nError: Primer3 Error $status\n";
+        die "\nError: Primer3 Error $status\n";
         return undef;
     }
         
     my $p3_reply;
     
     # go through Primer3 output
-    open $fh_read, "<$p3_out" or die "\nError: Can\'t open $p3_out\n\n";   
+    open $fh_read, "<$p3_out" or die "\nError: Can\'t open $p3_out\n";   
     PRIMER3_READ: while (<$fh_read>) { 
 
         my $line = $_;       
@@ -404,13 +439,15 @@ sub _primers_ok {
         if ($line =~ /PRIMER_ERROR/) {
         
             # Primer3 found an error
-            print STDERR "\nPrimer3 Error: $line\n";
+            close $fh_read;
+            die "\nPrimer3 Error: $line\n";
             return undef;
         }        
         if ($line =~ /PROBLEM/) {
 
             # Primer3 had a problem
-            print STDERR "\nPrimer3 Problem: $line\n";
+            close $fh_read;
+            die "\nPrimer3 Problem: $line\n";
             return undef;
         } 
 
@@ -498,11 +535,16 @@ sub _create_primers {
 #### see if stop codon has been 'wacked' ####
 sub _sanity_check_gene {
 
-    my ($orf,         # ATGC as primers will make
-        $orf_start,   # start codon
-        $orf_stop     # stop codon
+    my ($orf,               # ATGC as primers will make
+        $orf_start,         # start codon
+        $orf_stop,          # stop codon
+        $searchbeforestop   # right side search shift
        ) = @_;
 
+    if ($searchbeforestop != 0) {
+        return 1;          
+    }
+    
     my $stop = _stop_codon($orf, $orf_start);
     
     if (not defined $stop) {     
@@ -527,7 +569,8 @@ sub _primer_pairs {
         $orf,                # ATGC
         $orf_start,          # start codon location
         $orf_stop,           # stop codon location
-        $search_shift,       # shift search in from right
+        $searchpaststart,    # shift search in from left
+        $searchbeforestop,   # shift search in from right
         $pr3_hr              # Primer3 Boulder tags
        ) = @_;
 
@@ -544,7 +587,8 @@ sub _primer_pairs {
         foreach my $right_pr (@{$right_primers_ref}) { 
 
             # sequence to be made OK
-            if (_sanity_check_gene($orf, $orf_start, $orf_stop) == 1) { 
+            if (_sanity_check_gene(
+                  $orf, $orf_start, $orf_stop, $searchbeforestop) == 1) { 
                 
                 # primers OK
                 my $reply = _primers_ok($left_pr, 
@@ -552,7 +596,8 @@ sub _primer_pairs {
                                         $orf, 
                                         $orf_start, 
                                         $orf_stop, 
-                                        $search_shift,
+                                        $searchpaststart,
+                                        $searchbeforestop,
                                         $pr3_hr);
 
                 if (defined $reply) { 
@@ -591,8 +636,7 @@ sub _number_dots {
 #### see if there are too many substitutions in a row being requested ####
 sub _too_many_substitutions_in_a_row {
 
-    my ($max_dots,    # maximum nuber of dots
-        @chars        # array of characters to check
+    my (@chars        # array of characters to check
        ) = @_;
 
     my $n_in_a_row = 0;
@@ -607,7 +651,7 @@ sub _too_many_substitutions_in_a_row {
             $n_in_a_row = 0 
         }
 
-        if ($n_in_a_row == $max_dots) {   
+        if ($n_in_a_row == $MAX_DOTS_IN_A_ROW) {   
             return 1 
         }
     }
@@ -628,14 +672,15 @@ sub _generate_re_patterns {
     my @s;   # next pattern
 
     # add to hash, keep track of only one instance
-    $pattern_hr->{ join '', @r } = 1;
-   
-    # limit to annealing capability of primer
-    if (_number_dots(@r) == $max_dots)  {   
-        return undef 
+    if (_too_many_substitutions_in_a_row(@r) == 0) { 
+        $pattern_hr->{ join '', @r } = 1;
     }
-
-    if (_too_many_substitutions_in_a_row($max_dots, @r) == 1) {     
+    else {       
+        return undef 
+    }   
+    
+    # limit to annealing capability of primer
+    if (_number_dots(@r) >= $max_dots)  {   
         return undef 
     }
 
@@ -684,9 +729,16 @@ sub _get_re_patterns {
     
     my @re = split '', $re; # characters in RE
     my %l;                  # hash function with list of generated RE
-
+    my @pats = ();          # patterns 
+    
     # generate patterns for requested enzyme
-    my @pats = _generate_re_patterns($max_dots, \%l, @re);
+    if ($max_dots == 0) {
+        push @pats, $re;
+        return @pats;
+    }
+    else {
+        @pats = _generate_re_patterns($max_dots, \%l, @re);
+    }
 
     # sort patterns here
     my @sorted;
@@ -744,7 +796,7 @@ sub _create_left_primers {
     
     my ($modified_gene,   # ATGC modified for left RE
         $orf_start,       # location of start codon
-        $search_shift,    # amount search is shifted in from left
+        $searchpaststart, # amount search is shifted in from left
         $re_pos_l,        # position of left RE
         $re_l,            # left RE
         $clamp            # type of GC clamp
@@ -754,7 +806,7 @@ sub _create_left_primers {
     my $seq_to_search = 
         substr($modified_gene, 
                0, 
-               $orf_start + $PEEK_IN + $search_shift + $max_size_primer);
+               $orf_start + $PEEK_IN + $searchpaststart + $max_size_primer);
  
     my $left_primers  = {};
     
@@ -784,13 +836,15 @@ sub _create_right_primers {
     
     my ($more_modified_gene,   # ATGC modified for left and right RE
         $orf_stop,             # location of stop codon
+        $searchbeforestop,     # search into ORF
         $re_pos_r,             # position of right RE
         $re_r,                 # right RE
         $clamp                 # type of GC clamp
        ) = @_;
 
     # search location
-    my $seq_to_search = substr($more_modified_gene, $orf_stop + $CODON_SIZE);
+    my $seq_to_search = substr($more_modified_gene, 
+                               $orf_stop + $CODON_SIZE - $searchbeforestop);
     
     my $right_primers = {};
                    
@@ -931,22 +985,22 @@ See mcprimers.pl for an example of use and front-end.
     Vector files     - Make vector file directory accessable
     mcprimers.pl     - Place in a directory where it can be accessed 
     mcprimers_gui.pl - Place in a directory where it can be accessed 
-    mcprimers.acd    - Put in acd directory for EMBOSS
+    mcprimers.acd    - Put in acd directory for EMBOSS 
+                       Only checked with acdvalidate 
+    
+    MCPrimers_manual.doc    - User documentation
     
     MCPRIMER_DIR     - Set this environment variable to point to the 
                        directory containing mcprimers.pl  
     PRIMER3_DIR      - Set environment variable to point to Primer3 
                        executable directory.
-
+    
     MSWindows - use primer3.exe
     Other     - use primer3_core
  
 =head1 DEPENDENCIES
 
 Primer3 used as primer3.exe on MSWindows and as primer3_core otherwise.
-
-Specify environment variable PRIMER3_DIR (Primer3 executable)
-Specify environment variable MCPRIMERS_DIR (mcprimers.pl)
 
 Used by mcprimers.pl, which is used by mcprimers_gui.pl:
 
@@ -963,7 +1017,7 @@ Used by mcprimers_gui.pl:
 =head1 SYNOPSIS
 
 mcprimers.pl -help
-mcprimers.pl -vectorfile pET-32a.txt cyss.fa cyss.pr3
+mcprimers.pl -vectorfile pet-32a.txt cyss.fa cyss.pr3
 mcprimers_gui.pl
 
 Note: Use perl -Ilib if modules are still in local lib directory.
@@ -973,17 +1027,11 @@ See mcprimers.pl for an example of the use of Bio::MCPrimers itself
 Note: mcprimers.pl is a command line program
       mcprimers_gui.pl is a GUI on top of mcprimers.pl
       
-=head1 LIMITATIONS
+=head1 LIMITATIONS and TROUBLESHOOTING
 
-Limitation: Primer3 does not account for redundancy codes. 
-            MCPrimers doesn't either.
+See MCPrimers_manual.doc
 
-Note:       Runs use intermediate files keyed to PID.
-            
-There is no guarantee this code will find the best solution, or even any 
-solution, or that the solutions it finds will be correct or useful to you.
-
-Use at your risk. Check any solutions you obtain.
+Note: Runs use intermediate files keyed to PID.
 
 =head1 BUGS
 

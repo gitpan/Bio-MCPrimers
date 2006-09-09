@@ -36,11 +36,14 @@ push @tests, ['not',
               'perl -I../lib ../mcprimers.pl -clamp dork 2>generated_file.pr3',
               'bad_clamp.txt'];
 push @tests, ['not',
-              'perl -I../lib ../mcprimers.pl -shift dork 2>generated_file.pr3',
-              'bad_shift.txt'];
+              'perl -I../lib ../mcprimers.pl -searchpaststart dork 2>generated_file.pr3',
+              'bad_searchpaststart.txt'];
 push @tests, ['not',
               'perl -I../lib ../mcprimers.pl -excludedsites 2>generated_file.pr3',
               'bad_excludedsites.txt'];
+push @tests, ['not',
+              'perl -I../lib ../mcprimers.pl pet-32a.txt bad_nt.fa dummy.txt 2>generated_file.pr3',
+              'bad_nt.txt'];              
 push @tests, ['',
               'perl -I../lib ../mcprimers.pl -excludedsites AvaI-XhoI,KpnI pet-32a.txt ppib.fa generated_file.pr3',
               'ppib_sans_avai_xhoi_kpni.pr3'];
@@ -57,16 +60,33 @@ push @tests, ['',
               'perl -I../lib ../mcprimers.pl -filter -excludedsites=AvaI-XhoI,KpnI pet-32a.txt <ppib.fa >generated_file.pr3',
               'ppib_sans_avai_xhoi_kpni.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -clamp 3prime -shift 24 -stdout pet-32a.txt HIcysS.fa > generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -clamp 3prime -searchpaststart 24 -stdout pet-32a.txt HIcysS.fa > generated_file.pr3',
               'HIcysS.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -clamp=3prime -shift=24 -excludedsites=KpnI pet-32a.txt HIcysS.fa generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -clamp=3prime -searchpaststart=24 -excludedsites=KpnI pet-32a.txt HIcysS.fa generated_file.pr3',
               'no_solution.pr3'];
 push @tests, ['',
               'perl -I../lib ../mcprimers.pl -primerfile=p3.txt -vectorfile=pet-32a.txt -seqfile=ppib.fa -outfile=generated_file.pr3',
               'no_solution_p3.pr3'];
-
-
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -vectorfile=pet-32a.txt -seqfile=nm_001045843_utr.fa -outfile=generated_file.pr3',
+              'nm_001045843_utr.pr3'];
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -vectorfile=pet-32a.txt -searchpaststart=42 -searchbeforestop=42 -clamp=3prime -seqfile=nm_001045843_cds.fa generated_file.pr3',
+              'nm_001045843_cds.pr3'];
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -maxchanges=2 pet-32a.txt ppib.fa generated_file.pr3',
+              'maxchanges_2.pr3'];
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -maxchanges=1 pet-32a.txt ppib1.fa generated_file.pr3',
+              'ppib1.pr3'];
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -maxchanges=0 pet-32a.txt ppib0.fa generated_file.pr3',
+              'ppib0.pr3'];
+push @tests, ['',
+              'perl -I../lib ../mcprimers.pl -maxchanges=3 pet-32a.txt ppib3inarow.fa generated_file.pr3',
+              'ppib3inarow.pr3'];
+    
 my $test = 1;
 
 TEST_LOOP: foreach my $t (@tests) {

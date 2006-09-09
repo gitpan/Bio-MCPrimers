@@ -1,19 +1,21 @@
 
 |------------------------------------------------------------------|
-| MCPrimers V2.3 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date              = Fri Aug 25 19:23:17 2006
-Sequence file     = ppib.fa
-Results file      = no_solution_p3.pr3
-Primer3 file      = p3.txt
-Cloning vector    = pet-32a.txt
-Clamp flag        = both
-Shift flag        = 0
-Excluded sites    = 
+Date                 = Fri Sep  8 15:48:34 2006
+Sequence file        = ppib.fa
+Results file         = no_solution_p3.pr3
+Primer3 file         = p3.txt
+Cloning vector       = pet-32a.txt
+Clamp flag           = both
+Maximum changes      = 3
+Search past start    = 0
+Search before stop   = 0
+Excluded sites       = 
 Primer3 Boulder tags used from p3.txt:
 	PRIMER_GC_CLAMP=2
 Original sequence:

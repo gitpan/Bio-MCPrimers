@@ -1,19 +1,21 @@
 
 |------------------------------------------------------------------|
-| MCPrimers V2.3 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date              = Fri Aug 25 18:32:54 2006
-Sequence file     = HIcysS.fa
-Results file      = no_solution.pr3
-Primer3 file      = 
-Cloning vector    = pet-32a.txt
-Clamp flag        = 3prime
-Shift flag        = 24
-Excluded sites    = KpnI 
+Date                 = Fri Sep  8 15:48:30 2006
+Sequence file        = HIcysS.fa
+Results file         = no_solution.pr3
+Primer3 file         = 
+Cloning vector       = pet-32a.txt
+Clamp flag           = 3prime
+Maximum changes      = 3
+Search past start    = 24
+Search before stop   = 0
+Excluded sites       = KpnI 
 Original sequence:
 TTTCATTTTACGAGCTTAAAAATGCTAAAAATTTTCAATACCTTAACGAGAGAAAAAGAA
 ATCTTTAAACCTATCCACGAAAATAAAGTGGGAATGTATGTTTGCGGCGTCACTGTTTAT

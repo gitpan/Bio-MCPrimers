@@ -47,12 +47,21 @@ section: advanced [
     additional: "Y"    
   ]
   
-  integer: shift  [
+  integer: searchafterstart  [
     default: 0
     minimum: 0
     maximum: 30
-    information: "Shift search into sequence"
-    help: "Shift search into sequence"
+    information: "Shift search right into ORF from start codon"
+    help: "Shift search right into ORF from start codon"
+    additional: "Y"    
+  ]  
+  
+  integer: searchbeforestop  [
+    default: 0
+    minimum: 0
+    maximum: 30
+    information: "Shift search left into ORF from stop codon"
+    help: "Shift search left into ORF from stop codon"
     additional: "Y"    
   ]
   

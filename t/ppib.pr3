@@ -1,19 +1,21 @@
 
 |------------------------------------------------------------------|
-| MCPrimers V2.3 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date              = Sat Aug 19 23:32:02 2006
-Sequence file     = ppib.fa
-Results file      = generated_file.pr3
-Primer3 file      = 
-Cloning vector    = pet-32a.txt
-Clamp flag        = both
-Shift flag        = 0
-Excluded sites    = 
+Date                 = Fri Sep  8 15:46:31 2006
+Sequence file        = ppib.fa
+Results file         = ppib.pr3
+Primer3 file         = 
+Cloning vector       = pet-32a.txt
+Clamp flag           = both
+Maximum changes      = 3
+Search past start    = 0
+Search before stop   = 0
+Excluded sites       = 
 Original sequence:
 ATTTTTTAGAGGGAAAACAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
@@ -1129,84 +1131,6 @@ primer3 release 1.0
 Start codon at  21
 Stop codon  at  528
 Left RE site  = NspV (TTCGAA)
-Right RE site = EcoRV (GATATC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.54   42.86  6.00  3.00 GAGGGAATTCGAAATGGTTAC
-RIGHT PRIMER       627   24   59.64   41.67  6.00  3.00 GAATATGGATATCAACGTGACAGG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 620, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAATTCGAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATATCCATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-          <<<<<<<<<<<<<<<<<<<<<<<<                                
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 16
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = NspV (TTCGAA)
 Right RE site = BamHI (GGATCC)
 
 Primer3 analysis of PCR primers designed by MCPrimers:
@@ -1279,7 +1203,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 17
+=========  Solution # 16
 =========
 
 Start codon at  21
@@ -1357,7 +1281,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 18
+=========  Solution # 17
 =========
 
 Start codon at  21
@@ -1435,7 +1359,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 19
+=========  Solution # 18
 =========
 
 Start codon at  21
@@ -1513,7 +1437,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 20
+=========  Solution # 19
 =========
 
 Start codon at  21
@@ -1591,7 +1515,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 21
+=========  Solution # 20
 =========
 
 Start codon at  21
@@ -1669,7 +1593,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 22
+=========  Solution # 21
 =========
 
 Start codon at  21
@@ -1747,7 +1671,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 23
+=========  Solution # 22
 =========
 
 Start codon at  21
@@ -1825,7 +1749,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 24
+=========  Solution # 23
 =========
 
 Start codon at  21
@@ -1903,7 +1827,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 25
+=========  Solution # 24
 =========
 
 Start codon at  21
@@ -1981,7 +1905,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 26
+=========  Solution # 25
 =========
 
 Start codon at  21
@@ -2059,7 +1983,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 27
+=========  Solution # 26
 =========
 
 Start codon at  21
@@ -2137,7 +2061,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 28
+=========  Solution # 27
 =========
 
 Start codon at  21
@@ -2215,7 +2139,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 29
+=========  Solution # 28
 =========
 
 Start codon at  21
@@ -2293,7 +2217,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 30
+=========  Solution # 29
 =========
 
 Start codon at  21
@@ -2371,7 +2295,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 31
+=========  Solution # 30
 =========
 
 Start codon at  21
@@ -2449,7 +2373,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 32
+=========  Solution # 31
 =========
 
 Start codon at  21
@@ -2527,7 +2451,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 33
+=========  Solution # 32
 =========
 
 Start codon at  21
@@ -2605,7 +2529,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 34
+=========  Solution # 33
 =========
 
 Start codon at  21
@@ -2683,7 +2607,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 35
+=========  Solution # 34
 =========
 
 Start codon at  21
@@ -2761,7 +2685,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 36
+=========  Solution # 35
 =========
 
 Start codon at  21
@@ -2839,7 +2763,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 37
+=========  Solution # 36
 =========
 
 Start codon at  21
@@ -2917,7 +2841,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 38
+=========  Solution # 37
 =========
 
 Start codon at  21
@@ -2995,7 +2919,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 39
+=========  Solution # 38
 =========
 
 Start codon at  21
@@ -3073,7 +2997,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 40
+=========  Solution # 39
 =========
 
 Start codon at  21
@@ -3151,7 +3075,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 41
+=========  Solution # 40
 =========
 
 Start codon at  21
@@ -3229,7 +3153,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 42
+=========  Solution # 41
 =========
 
 Start codon at  21
@@ -3307,7 +3231,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 43
+=========  Solution # 42
 =========
 
 Start codon at  21
@@ -3385,85 +3309,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 44
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = KpnI (GGTACC)
-Right RE site = EcoRV (GATATC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER         11   23   57.96   39.13  6.00  3.00 GGAAAACAAAATGGGTACCTTAC
-RIGHT PRIMER       627   24   59.64   41.67  6.00  3.00 GAATATGGATATCAACGTGACAGG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 617, PAIR ANY COMPL: 3.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAAAACAAAATGGGTACCTTACACACAAACTTTGGCGACATTAAAATT
-                 >>>>>>>>>>>>>>>>>>>>>>>     XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATATCCATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-          <<<<<<<<<<<<<<<<<<<<<<<<                                
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 45
+=========  Solution # 43
 =========
 
 Start codon at  21
@@ -3541,7 +3387,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 46
+=========  Solution # 44
 =========
 
 Start codon at  21
@@ -3619,7 +3465,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 47
+=========  Solution # 45
 =========
 
 Start codon at  21
@@ -3697,7 +3543,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 48
+=========  Solution # 46
 =========
 
 Start codon at  21
@@ -3775,7 +3621,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 49
+=========  Solution # 47
 =========
 
 Start codon at  21
@@ -3853,7 +3699,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 50
+=========  Solution # 48
 =========
 
 Start codon at  21
@@ -3931,7 +3777,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 51
+=========  Solution # 49
 =========
 
 Start codon at  21
@@ -4009,7 +3855,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 52
+=========  Solution # 50
 =========
 
 Start codon at  21
@@ -4087,7 +3933,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 53
+=========  Solution # 51
 =========
 
 Start codon at  21
@@ -4165,7 +4011,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 54
+=========  Solution # 52
 =========
 
 Start codon at  21
@@ -4243,7 +4089,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 55
+=========  Solution # 53
 =========
 
 Start codon at  21
@@ -4321,7 +4167,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 56
+=========  Solution # 54
 =========
 
 Start codon at  21
@@ -4399,7 +4245,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 57
+=========  Solution # 55
 =========
 
 Start codon at  21
@@ -4477,7 +4323,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 58
+=========  Solution # 56
 =========
 
 Start codon at  21
@@ -4555,7 +4401,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 59
+=========  Solution # 57
 =========
 
 Start codon at  21
@@ -4633,7 +4479,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 60
+=========  Solution # 58
 =========
 
 Start codon at  21
@@ -4711,7 +4557,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 61
+=========  Solution # 59
 =========
 
 Start codon at  21
@@ -4789,7 +4635,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 62
+=========  Solution # 60
 =========
 
 Start codon at  21
@@ -4867,7 +4713,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 63
+=========  Solution # 61
 =========
 
 Start codon at  21
@@ -4945,7 +4791,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 64
+=========  Solution # 62
 =========
 
 Start codon at  21
@@ -5023,7 +4869,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 65
+=========  Solution # 63
 =========
 
 Start codon at  21
@@ -5101,7 +4947,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 66
+=========  Solution # 64
 =========
 
 Start codon at  21
@@ -5179,7 +5025,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 67
+=========  Solution # 65
 =========
 
 Start codon at  21
@@ -5257,7 +5103,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 68
+=========  Solution # 66
 =========
 
 Start codon at  21
@@ -5335,7 +5181,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 69
+=========  Solution # 67
 =========
 
 Start codon at  21
@@ -5413,7 +5259,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 70
+=========  Solution # 68
 =========
 
 Start codon at  21
@@ -5491,7 +5337,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 71
+=========  Solution # 69
 =========
 
 Start codon at  21
@@ -5569,7 +5415,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 72
+=========  Solution # 70
 =========
 
 Start codon at  21
@@ -5647,7 +5493,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 73
+=========  Solution # 71
 =========
 
 Start codon at  21
@@ -5725,85 +5571,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 74
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = NcoI (CCATGG)
-Right RE site = EcoRV (GATATC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   58.28   47.62  8.00  3.00 GAGGGAAAACACCATGGTTAC
-RIGHT PRIMER       627   24   59.64   41.67  6.00  3.00 GAATATGGATATCAACGTGACAGG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 620, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAAAACACCATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATATCCATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-          <<<<<<<<<<<<<<<<<<<<<<<<                                
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 75
+=========  Solution # 72
 =========
 
 Start codon at  21
@@ -5881,7 +5649,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 76
+=========  Solution # 73
 =========
 
 Start codon at  21
@@ -5959,7 +5727,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 77
+=========  Solution # 74
 =========
 
 Start codon at  21
@@ -6037,7 +5805,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 78
+=========  Solution # 75
 =========
 
 Start codon at  21
@@ -6115,7 +5883,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 79
+=========  Solution # 76
 =========
 
 Start codon at  21
@@ -6193,7 +5961,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 80
+=========  Solution # 77
 =========
 
 Start codon at  21
@@ -6271,7 +6039,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 81
+=========  Solution # 78
 =========
 
 Start codon at  21
@@ -6349,7 +6117,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 82
+=========  Solution # 79
 =========
 
 Start codon at  21
@@ -6427,7 +6195,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 83
+=========  Solution # 80
 =========
 
 Start codon at  21
@@ -6505,7 +6273,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 84
+=========  Solution # 81
 =========
 
 Start codon at  21
@@ -6583,7 +6351,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 85
+=========  Solution # 82
 =========
 
 Start codon at  21
@@ -6661,7 +6429,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 86
+=========  Solution # 83
 =========
 
 Start codon at  21
@@ -6739,7 +6507,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 87
+=========  Solution # 84
 =========
 
 Start codon at  21
@@ -6817,7 +6585,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 88
+=========  Solution # 85
 =========
 
 Start codon at  21
@@ -6895,7 +6663,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 89
+=========  Solution # 86
 =========
 
 Start codon at  21
@@ -6973,7 +6741,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 90
+=========  Solution # 87
 =========
 
 Start codon at  21
@@ -7051,7 +6819,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 91
+=========  Solution # 88
 =========
 
 Start codon at  21
@@ -7129,7 +6897,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 92
+=========  Solution # 89
 =========
 
 Start codon at  21
@@ -7207,7 +6975,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 93
+=========  Solution # 90
 =========
 
 Start codon at  21
@@ -7285,7 +7053,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 94
+=========  Solution # 91
 =========
 
 Start codon at  21
@@ -7363,7 +7131,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 95
+=========  Solution # 92
 =========
 
 Start codon at  21
@@ -7441,7 +7209,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 96
+=========  Solution # 93
 =========
 
 Start codon at  21
@@ -7519,7 +7287,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 97
+=========  Solution # 94
 =========
 
 Start codon at  21
@@ -7597,7 +7365,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 98
+=========  Solution # 95
 =========
 
 Start codon at  21
@@ -7675,7 +7443,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 99
+=========  Solution # 96
 =========
 
 Start codon at  21
@@ -7753,7 +7521,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 100
+=========  Solution # 97
 =========
 
 Start codon at  21
@@ -7831,7 +7599,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 101
+=========  Solution # 98
 =========
 
 Start codon at  21
@@ -7909,7 +7677,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 102
+=========  Solution # 99
 =========
 
 Start codon at  21
@@ -7987,7 +7755,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 103
+=========  Solution # 100
 =========
 
 Start codon at  21
@@ -8065,7 +7833,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 104
+=========  Solution # 101
 =========
 
 Start codon at  21
@@ -8143,7 +7911,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 105
+=========  Solution # 102
 =========
 
 Start codon at  21
@@ -8221,7 +7989,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 106
+=========  Solution # 103
 =========
 
 Start codon at  21
@@ -8299,7 +8067,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 107
+=========  Solution # 104
 =========
 
 Start codon at  21
@@ -8377,7 +8145,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 108
+=========  Solution # 105
 =========
 
 Start codon at  21
@@ -8455,7 +8223,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 109
+=========  Solution # 106
 =========
 
 Start codon at  21
@@ -8533,7 +8301,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 110
+=========  Solution # 107
 =========
 
 Start codon at  21
@@ -8611,7 +8379,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 111
+=========  Solution # 108
 =========
 
 Start codon at  21
@@ -8689,7 +8457,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 112
+=========  Solution # 109
 =========
 
 Start codon at  21
@@ -8767,7 +8535,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 113
+=========  Solution # 110
 =========
 
 Start codon at  21
@@ -8845,7 +8613,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 114
+=========  Solution # 111
 =========
 
 Start codon at  21
@@ -8923,7 +8691,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 115
+=========  Solution # 112
 =========
 
 Start codon at  21
@@ -9001,7 +8769,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 116
+=========  Solution # 113
 =========
 
 Start codon at  21
@@ -9079,7 +8847,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 117
+=========  Solution # 114
 =========
 
 Start codon at  21
@@ -9157,7 +8925,7 @@ primer3 release 1.0
 
 
 =========
-=========  Solution # 118
+=========  Solution # 115
 =========
 
 Start codon at  21
@@ -9179,1410 +8947,6 @@ PRODUCT SIZE: 554, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 0.00
 EXCLUDED REGIONS (start, len)*: 39,492
 
     0 ATTTTTTAGAGGGGATCCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       <<
-
-  540 ATAAAACAACCTCGAGCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-      <<<<<<<<<<<<<<<<<<<<<<                                      
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 119
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       627   23   61.71   47.83  6.00  2.00 GAATATGTCGACCAACGTGACAG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 620, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGGTCGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-           <<<<<<<<<<<<<<<<<<<<<<<                                
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 120
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       639   22   60.74   50.00  6.00  2.00 CCATTTCAGGTCGACTATGTCC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 632, PAIR ANY COMPL: 6.00, PAIR 3' COMPL: 0.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATAGTCGACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                        <<<<<<<<<<<<<<<<<<<<<<                    
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 121
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       561   23   57.96   39.13  6.00  0.00 CTTTAGGTCGACGTTGTTTTATG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 554, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX        <
-
-  540 ATAAAACAACGTCGACCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-      <<<<<<<<<<<<<<<<<<<<<<                                      
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 122
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       600   21   59.59   47.62  6.00  2.00 GCGAAAGTCGACCATAATCAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 593, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCGACTTTCG
-                                              <<<<<<<<<<<<<<<<<<<<
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-      <                                                           
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 123
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       582   22   59.64   45.45  6.00  1.00 CACATTGTCGACTTTCTCCAAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 575, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAAGTCGACAATGTGATTATGGTCAATTTTCG
-                           <<<<<<<<<<<<<<<<<<<<<<                 
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 124
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       553   23   61.87   43.48  6.00  2.00 CGATGTCGACTTATGCTCATTTG
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 546, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<<<<<<<<<
-
-  540 ATAAGTCGACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-      <<<<<<<<<<<<<<                                              
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 125
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       681   22   59.48   40.91  6.00  0.00 CATTCAGTCGACCATTCAAAAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 674, PAIR ANY COMPL: 6.00, PAIR 3' COMPL: 3.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGGTCGACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-      <<<<<<<<<<<<<<<<<<<<<<                                      
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 126
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = SalI (GTCGAC)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       706   24   59.47   37.50  8.00  2.00 GAAATTGGTCGACCTAAAATAAGC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 699, PAIR ANY COMPL: 3.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGGTCGACCAATTTCATCTAAAATTAAT
-                             <<<<<<<<<<<<<<<<<<<<<<<<             
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 127
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = HindIII (AAGCTT)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       604   23   60.01   43.48  6.00  2.00 GTATGCGAAGCTTGACCATAATC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 597, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAAGCTTCG
-                                                <<<<<<<<<<<<<<<<<<
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-      <<<<<                                                       
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 128
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = HindIII (AAGCTT)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       677   24   57.36   33.33  6.00  3.00 CAGTTAAGCTTTCAAAACAACAAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 670, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                            <<<<<<
-
-  660 GTTTTGAAAGCTTAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-      <<<<<<<<<<<<<<<<<<                                          
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 129
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = HindIII (AAGCTT)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       670   22   60.99   40.91  6.00  0.00 GCATTCAAAGCTTCAACCAAAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 663, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGAA
-                                                       <<<<<<<<<<<
-
-  660 GCTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-      <<<<<<<<<<<                                                 
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 130
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = HindIII (AAGCTT)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       619   21   57.41   47.62  6.00  2.00 CCATAAGCTTGACAGGTATGC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 612, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                 <
-
-  600 CATACCTGTCAAGCTTATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-      <<<<<<<<<<<<<<<<<<<<                                        
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 131
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = HindIII (AAGCTT)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       556   19   58.37   47.37  8.00  2.00 GGGCAAGCTTGTTTTATGC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 549, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 3.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       <<
-
-  540 ATAAAACAAGCTTGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-      <<<<<<<<<<<<<<<<<                                           
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 132
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = AvaI-XhoI (CTCGAG)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       582   22   58.84   45.45  6.00  1.00 CACATTCTCGAGTTTCTCCAAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 575, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAACTCGAGAATGTGATTATGGTCAATTTTCG
-                           <<<<<<<<<<<<<<<<<<<<<<                 
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 133
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = AvaI-XhoI (CTCGAG)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       600   21   59.87   47.62  6.00  1.00 GCGAAACTCGAGCATAATCAC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 593, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 2.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGCTCGAGTTTCG
-                                              <<<<<<<<<<<<<<<<<<<<
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-      <                                                           
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 134
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = AvaI-XhoI (CTCGAG)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       638   21   57.44   47.62  6.00  0.00 CATTTCAGCTCGAGTATGTCC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 631, PAIR ANY COMPL: 7.00, PAIR 3' COMPL: 0.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATACTCGAGCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                        <<<<<<<<<<<<<<<<<<<<<                     
-
-  660 GTTTTGAATGCTAAACTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-                                                                  
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 135
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = AvaI-XhoI (CTCGAG)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       683   19   59.18   52.63  6.00  2.00 CCCATTCACTCGAGCATTC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 676, PAIR ANY COMPL: 5.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
-
-   60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  120 GGTTTTTATAATAACACAATTTTTCATCGTGTTATTGATGGCTTTATGATTCAAGGTGGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  180 GGTATGGAAAGCGGTATGCGCGAAAAAGCAACTAAAGCCCCAATCCAAAATGAAGCGAAC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  240 AATCGTTTAAGTAACAAACGTGGAACCATTGCAATGGCTCGCACTTCAGATCCACATTCA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  300 GCGACAGCACAATTTTTCATTAACGTGGCAGACAATGATTTCTTAAATTATCGTTCAAAA
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  360 GAAATGTTTGGTCGCGAAGTCGTTCAAGAATGGGGCTATGCAGTATTTGGCGAAGTGGTT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  420 GAAGGTATGGATGTTGTGGATAAAATCAAAAAAGTGAAAACAGGCAACAAAGGCTTTCAT
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
-
-  540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
-                                                                  
-
-  600 CATACCTGTCACGTTGATGGACATATTCCACCTGAAATGGTTAAAAAACGTTTGGTTGTT
-                                                                  
-
-  660 GTTTTGAATGCTCGAGTGAATGGGCTTATTTTAGTTGCACCAATTTCATCTAAAATTAAT
-           <<<<<<<<<<<<<<<<<<<                                    
-
-  720 TTAGATGGTAT
-                 
-
-KEYS (in order of precedence):
-XXXXXX excluded region
->>>>>> left primer
-<<<<<< right primer
-
-
-Statistics
-         con   too    in    in          no    tm    tm  high  high        high      
-         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
-        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
-Left       1     0     0     0     0     0     0     0     0     0     0     0     1
-Right      1     0     0     0     0     0     0     0     0     0     0     0     1
-Pair Stats:
-considered 1, ok 1
-primer3 release 1.0
-
-
-=========
-=========  Solution # 136
-=========
-
-Start codon at  21
-Stop codon  at  528
-Left RE site  = SacI (GAGCTC)
-Right RE site = AvaI-XhoI (CTCGAG)
-
-Primer3 analysis of PCR primers designed by MCPrimers:
-
-No mispriming library specified
-Using 0-based sequence positions
-OLIGO            start  len      tm     gc%   any    3' seq
-LEFT PRIMER          8   21   57.80   47.62  6.00  3.00 GAGGGAGCTCAAAATGGTTAC
-RIGHT PRIMER       561   24   60.62   41.67  6.00  2.00 CTTTAGCTCGAGGTTGTTTTATGC
-SEQUENCE SIZE: 731
-INCLUDED REGION SIZE: 731
-
-PRODUCT SIZE: 554, PAIR ANY COMPL: 6.00, PAIR 3' COMPL: 0.00
-EXCLUDED REGIONS (start, len)*: 39,492
-
-    0 ATTTTTTAGAGGGAGCTCAAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
               >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
 
    60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC

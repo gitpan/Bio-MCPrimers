@@ -1,6 +1,4 @@
-@echo off
 set PRIMER3_DIR=c:\windows\system32
-
 
 @rem = '--*-Perl-*--
 @echo off
@@ -17,7 +15,7 @@ goto endofperl
 #!/usr/bin/perl -w
 #line 15
 
-$VERSION = '2.3'; 
+$VERSION = '2.4'; 
 
 # mcprimers.pl - Designs molecular cloning PCR primers.
 
@@ -26,7 +24,7 @@ $VERSION = '2.3';
 
 # This program is free software; you can redistribute it and/or  
 # modify it under the same terms as Perl itself.
-# Licenced under the Artistic Licence.
+# Licenced under the Perl Artistic Licence.
 
 # Note: mcprimers.pl is intended to mimic an EMBOSS/EMBASSY program
 
@@ -39,20 +37,23 @@ $VERSION = '2.3';
 # Limitations: Does not account for redundancy codes in FASTA files
 # Note:        These runs use intermediate files keyed to PID
 #              See Bio::MCPrimers for POD
-#              Use with V2.3 of BIO::MCPrimers.pm
+#              Use with V2.4 of BIO::MCPrimers.pm
 
 use strict;
 use warnings;
 
 use Bio::MCPrimers;
 
-my $use_msg;                  # help use message
 my %flag;                     # hash for all flags
-my $flag;                     # flag currently being checked
 $flag{clamp}        = 'both'; # default
-$flag{search_shift} = 0;      # default
 $flag{stdout}       = 0;      # default
 $flag{filter}       = 0;      # default
+$flag{searchpaststart} = 0;   # default
+$flag{searchbeforestop} = 0;  # default
+$flag{maxchanges} = 3;        # default
+
+my $use_msg;                  # help use message
+my $flag;                     # flag currently being checked
 my $vector_name     = '';     # name of cloning vector
 my $pr3_file        = '';     # Primer3 Boulder file
 my $seq_file        = '';     # sequence file
@@ -119,22 +120,24 @@ sub print_output {
     my $copr = 
     qq/
 |------------------------------------------------------------------|
-| MCPrimers V2.3 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date              = $local_time
-Sequence file     = $seq_file
-Results file      = $out_file
-Primer3 file      = $pr3_file
-Cloning vector    = $vector_name
-Clamp flag        = $flag{clamp}
-Shift flag        = $flag{search_shift}
+Date                 = $local_time
+Sequence file        = $seq_file
+Results file         = $out_file
+Primer3 file         = $pr3_file
+Cloning vector       = $vector_name
+Clamp flag           = $flag{clamp}
+Maximum changes      = $flag{maxchanges}
+Search past start    = $flag{searchpaststart}
+Search before stop   = $flag{searchbeforestop}
 /;
     
-    print $out_fh $copr, "Excluded sites    = ";
+    print $out_fh $copr, "Excluded sites       = ";
     foreach (@excluded_sites) {print $out_fh "$re_name{$_} "};
     print $out_fh "\n";
     
@@ -325,25 +328,46 @@ sub parse_arguments {
                 die "\nError: -vector needs an argument\n"
             }
         }   
-        elsif ($flag =~ /^\-shift/) {
+        elsif ($flag =~ /^\-searchpaststart/) {
         
-            # search shift
-            if ($flag =~ /^\-shift=(.*)/) {
-                $flag{search_shift} = $1;
+            # search shift into start
+            if ($flag =~ /^\-searchpaststart=(.*)/) {
+                $flag{searchpaststart} = $1;
             }
             elsif (@ARGV) {
-                $flag{search_shift} = shift @ARGV;
+                $flag{searchpaststart} = shift @ARGV;
             }
             
-            if (not defined $flag{search_shift}) {
-                die "\nError: -shift needs an argument\n\n";
+            if (not defined $flag{searchpaststart}) {
+                die "\nError: -searchpaststart needs an argument\n\n";
             }
             
-            if ($flag{search_shift} =~ /^(\d)+$/) {
+            if ($flag{searchpaststart} =~ /^(\d)+$/) {
                 $found = 1;
             } 
             else {
-                 die "\nError: -shift $flag{search_shift} not an integer\n\n";
+                 die "\nError: -searchpaststart $flag{searchpaststart} not an integer\n\n";
+            }
+        }
+        elsif ($flag =~ /^\-searchbeforestop/) {
+        
+            # search shift into stop
+            if ($flag =~ /^\-searchbeforestop=(.*)/) {
+                $flag{searchbeforestop} = $1;
+            }
+            elsif (@ARGV) {
+                $flag{searchbeforestop} = shift @ARGV;
+            }
+            
+            if (not defined $flag{searchbeforestop}) {
+                die "\nError: -searchbeforestop needs an argument\n\n";
+            }
+            
+            if ($flag{searchbeforestop} =~ /^(\d)+$/) {
+                $found = 1;
+            } 
+            else {
+                 die "\nError: -searchbeforestop $flag{searchbeforestop} not an integer\n\n";
             }
         }
         elsif ($flag =~ /^\-clamp/) {
@@ -366,7 +390,28 @@ sub parse_arguments {
             else {
                  die "\nError: -clamp uses both or 3prime only\n\n";
             }     
-        }  
+        }  		
+        elsif ($flag =~ /^\-maxchanges/) {
+    
+            # Maximum mutagenic changes
+            if ($flag =~ /^\-maxchanges=(.*)/) {
+                $flag{maxchanges} = $1;
+            }
+            elsif (@ARGV) {
+                $flag{maxchanges} = shift @ARGV;
+            }
+            
+            if (not defined $flag{maxchanges}) {
+                die "\nError: -maxchanges needs an argument\n\n";
+            }
+            
+            if ($flag{maxchanges} =~ /^(\d)+$/) {
+                $found = 1;
+            } 
+            else {
+                 die "\nError: -maxchanges must be an integer\n\n";
+            }     
+        }  				
         elsif ($flag =~ /^\-excludedsites/) {
             
             # excluded recognition sites
@@ -515,23 +560,24 @@ sub define_use_message {
     
 $use_msg = qq/
 MCPrimers generates molecular cloning PCR primers
-Copyright (C) 2005, 2006 Stephen G. Lenk
 
 Use: mcprimers.pl [options] vector.txt sequence.fasta result.pr3
 
 Options:  -help
           -stdout
           -filter
-          -shift search_shift 
+          -searchpaststart integer
+          -searchbeforestop integer
           -clamp (both | 3prime)
+		  -maxchanges integer
           -excludedsites comma_seperated_list_with_no_blanks
-          -primerfile p3.txt
-          -vectorfile vector.txt
-          -seqfile sequence.fasta
+          -primerfile primer3_file_name
+          -vectorfile vector_file_name
+          -seqfile FASTA_sequence.fasta
           -outfile result.pr3
 
-Vector file as specified in Bio::Data::Plasmid::CloningVector
-Sequence file must be DNA in FASTA format
+Vector file is specified in Bio::Data::Plasmid::CloningVector
+Sequence file must be DNA nucleotides in FASTA format
 Results file has Primer3 output and extra data
 '=' can be used in specifying parameter values on command line
 
