@@ -60,10 +60,10 @@ push @tests, ['',
               'perl -I../lib ../mcprimers.pl -filter -excludedsites=AvaI-XhoI,KpnI pet-32a.txt <ppib.fa >generated_file.pr3',
               'ppib_sans_avai_xhoi_kpni.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -clamp 3prime -searchpaststart 24 -stdout pet-32a.txt HIcysS.fa > generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -clamp 3prime -searchpaststart 42 -stdout pet-32a.txt HIcysS.fa > generated_file.pr3',
               'HIcysS.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -clamp=3prime -searchpaststart=24 -excludedsites=KpnI pet-32a.txt HIcysS.fa generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -clamp=3prime -searchpaststart=42 -excludedsites=KpnI pet-32a.txt HIcysS.fa generated_file.pr3',
               'no_solution.pr3'];
 push @tests, ['',
               'perl -I../lib ../mcprimers.pl -primerfile=p3.txt -vectorfile=pet-32a.txt -seqfile=ppib.fa -outfile=generated_file.pr3',
@@ -72,7 +72,7 @@ push @tests, ['',
               'perl -I../lib ../mcprimers.pl -vectorfile=pet-32a.txt -seqfile=nm_001045843_utr.fa -outfile=generated_file.pr3',
               'nm_001045843_utr.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -vectorfile=pet-32a.txt -searchpaststart=42 -searchbeforestop=42 -clamp=3prime -seqfile=nm_001045843_cds.fa generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -vectorfile=pet-32a.txt -searchpaststart=60 -searchbeforestop=42 -clamp=3prime -seqfile=nm_001045843_cds.fa generated_file.pr3',
               'nm_001045843_cds.pr3'];
 push @tests, ['',
               'perl -I../lib ../mcprimers.pl -maxchanges=2 pet-32a.txt ppib.fa generated_file.pr3',
@@ -81,7 +81,7 @@ push @tests, ['',
               'perl -I../lib ../mcprimers.pl -maxchanges=1 pet-32a.txt ppib1.fa generated_file.pr3',
               'ppib1.pr3'];
 push @tests, ['',
-              'perl -I../lib ../mcprimers.pl -maxchanges=0 pet-32a.txt ppib0.fa generated_file.pr3',
+              'perl -I../lib ../mcprimers.pl -maxchanges=0 pet-32a.txt  -searchpaststart=5 -searchbeforestop=6 ppib0.fa generated_file.pr3',
               'ppib0.pr3'];
 push @tests, ['',
               'perl -I../lib ../mcprimers.pl -maxchanges=3 pet-32a.txt ppib3inarow.fa generated_file.pr3',
@@ -157,6 +157,7 @@ sub check_results {
         
         # compare lines, ignore 'Date' line
         if ((not $l1 eq $l2)              and 
+		    (not $l2 =~ /Copyright/)      and 
             (substr($l1, 0, 4) ne 'Date') and 
             (substr($l1, 0, 4) ne 'Resu') and
             (substr($l1, 0, 4) ne 'Sequ'))  {

@@ -1,5 +1,7 @@
+@echo off
 set PRIMER3_DIR=c:\windows\system32
-set MCPRIMERS_DIR="c:\perl\site\bin"
+set MCPRIMERS_DIR=c:\Perl\bin
+
 
 @rem = '--*-Perl-*--
 @echo off
@@ -20,7 +22,7 @@ goto endofperl
 # LICENCED UNDER PERL ARTISTIC LICENCE
 # See Bio/MCPrimers.pm for POD
 
-$VERSION = '2.4'; 
+$VERSION = '2.5'; 
 
 use Tk;
 use IPC::Open3;
@@ -37,7 +39,7 @@ use warnings;
 ##############################
 
 my $mw;                        # main window
-my $app_title = "MCPrimers v2.4 GUI";
+my $app_title = "MCPrimers Version 2.5 GUI";
 
 my $menubar_frame;             # frames
 my $right_frame;
@@ -63,7 +65,7 @@ my $p3_check;
 my $fname_message;
 
 my $clamp = 'both';            # parameters
-my $searchpaststart = 0;
+my $searchpaststart = 18;
 my $searchbeforestop = 0;
 my $maxchanges = 3;
 
@@ -145,7 +147,7 @@ sub create_text {
 
 sub create_right {
 
-    $right_frame = $mw->Frame->pack(-pady=>0, -side=>'right', -anchor=>'nw');
+    $right_frame = $mw->Frame->pack(-pady=>10, -side=>'right', -anchor=>'nw');
     
     
     $fname_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');
@@ -157,7 +159,7 @@ sub create_right {
 
     $start_scale_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');
     $start_scale_frame->Message(
-        -text  => "Search past start codon",
+        -text  => "Search NTs past start codon",
         -font  => 'Helvetica 10 bold',
         -width => 200)->pack(-anchor=>'nw');  
     $start_scale_frame->Scale(
@@ -166,7 +168,7 @@ sub create_right {
         -to           => 0,
         -variable     => \$searchpaststart,
         -sliderlength => 10,
-        -length       => 140,
+        -length       => 180,
         -orient       => 'horizontal',
         -showvalue    => 1,
         -state        => 'active',
@@ -175,7 +177,7 @@ sub create_right {
     
     $stop_scale_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');                                          
     $stop_scale_frame->Message(
-        -text  => "Search before stop codon",
+        -text  => "Search NTs before stop codon",
         -font  => 'Helvetica 10 bold',
         -width => 200)->pack(-anchor=>'nw');  
     $stop_scale_frame->Scale(
@@ -184,7 +186,7 @@ sub create_right {
         -to           => 0,
         -variable     => \$searchbeforestop,
         -sliderlength => 10,
-        -length       => 140,
+        -length       => 180,
         -orient       => 'horizontal',
         -showvalue    => 1,
         -state        => 'active',
@@ -193,7 +195,7 @@ sub create_right {
     
     $maxchanges_frame = $right_frame->Frame->pack(-padx=>5, -pady=>2, -anchor=>'nw');                                          
     $maxchanges_frame->Message(
-        -text  => "Maximum mutagenesis",
+        -text  => "Maximum changes per primer",
         -font  => 'Helvetica 10 bold',
         -width => 200,
         )->pack(-anchor=>'nw');  
@@ -203,7 +205,7 @@ sub create_right {
         -to           => 0,
         -variable     => \$maxchanges,
         -sliderlength => 10,
-        -length       => 140,
+        -length       => 180,
         -orient       => 'horizontal',
         -showvalue    => 1,
         -state        => 'active',
@@ -214,7 +216,7 @@ sub create_right {
     $para_frame->Message(
         -text  => "GC clamping",
         -font  => 'Helvetica 10 bold',
-        -width => 200)->pack(-anchor=>'nw');
+        -width => 160)->pack(-anchor=>'nw');
     $para_frame->Radiobutton (
         -text     => 'GC clamp 3\' and 5\'',
         -variable => \$clamp,
@@ -252,56 +254,57 @@ sub create_right {
 sub create_buttons {
     
     $bottom_frame = $mw->Frame->pack(-pady=>15, 
-                                     -side=>'bottom', 
-                                     -anchor => 'w');
+                                     -padx=>15,
+                                     -side=>'bottom',
+                                     -anchor=>'w');
     
     $bottom_frame->Button(
         -text    => 'Load Vector',
         -bg      => 'light green',
         -command => \&load_vector_file,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);
         
     $bottom_frame->Button(
         -text    => 'Load FASTA',
         -bg      => 'light green',
         -command => \&load_seq_file,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);
         
     $bottom_frame->Button(
         -text    => 'Select Primer3',
         -bg      => 'light green',
         -command => \&load_primer3,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);        
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);        
           
     $sub_button = $bottom_frame->Button(
         -text    => 'Execute',
         -bg      => 'light gray',
         -command => \&execute_mcprimers,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);
         
     $bottom_frame->Button(
         -text    => 'Save',
         -bg      => 'light green',
         -command => \&save_window,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);
                  
     $bottom_frame->Button(
         -text    => 'Help',
         -bg      => 'light green',
         -command => \&help,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2); 
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4); 
         
     $bottom_frame->Button(
         -text    => 'About',
         -bg      => 'light green',
         -command => \&about,
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);        
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);        
 
     $bottom_frame->Button(
         -text    => 'Exit',
         -bg      => 'light green',
         -command => sub { exit; },
-        )->pack(-anchor=>'w', -side=>'left', -padx=>2);            
+        )->pack(-anchor=>'w', -side=>'left', -padx=>4);            
 }
 
 ###################################################################
@@ -388,7 +391,7 @@ RESULTS:
                 last RESULTS;
             }
             if ($line =~ /.*Solution # (\d*)/) {
-                $m = "Done - $1 solutions found";
+                $m = "Done - $1 solution(s) found";
             }
             $line  = <RDRFH>;
         }
@@ -578,6 +581,7 @@ sub help {
     foreach (split "\n", $help_text) {
         push @h, "$_\n";
     }
+	$text_message->configure(-text=>"Help text displayed");
     &write_text(@h);       
 }
 
@@ -682,8 +686,7 @@ sub load_primer3 {
 
 sub define_help_text {
 
-$help_text = qq/
-MCPrimers GUI Help Text - V2.4
+$help_text = qq/MCPrimers GUI Help Text - Version 2.5
 
 A vector (plasmid) file and a FASTA file must be loaded before execution.
 
@@ -702,14 +705,14 @@ A vector (plasmid) file and a FASTA file must be loaded before execution.
 - GC clamping directs the type of GC clamping applied in the search.
 
 - Search shifts allow primers to be located inside the ORF.
-  Search past start codon goes into the ORF downstream from the start codon.
-  Search before stop codon goes into the ORF upstream from the stop codon.
+  Search past start codon (default = 18) goes into the ORF downstream from the start codon.
+  Search before stop codon (default = 0) goes into the ORF upstream from the stop codon.
 
-- Maxchanges allows the number of permitted mutagenic changes to be reduced.
+- Maxchanges (default = 3) controls the number of permitted mutagenic changes per primer.
 
 - The Select Primer3 button allows you to specify a Primer3 parameter file.
 
-- The Execute button will turn green when a vector file and a plasmid file are specified.
+- The Execute button will turn green when a vector file and a FASTA file are specified.
 
 - You can execute MCPrimers with the Execute button.
   After several minutes, the solution will appear in the text window.
@@ -733,7 +736,7 @@ Steve Lenk (c) 2006/;
 
 sub set_wd {
         
-	chdir(); 
+    chdir(); 
 }
 
 ####################################################################
@@ -742,9 +745,9 @@ sub display_wd {
 
     use Cwd;
     my $dir = &getcwd();
-	if (defined $dir) {
+    if (defined $dir) {
         $text_message->configure(-text=>"Current working directory is $dir");
-	}
+    }
 }
 
 ####################################################################

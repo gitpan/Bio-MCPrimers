@@ -1,21 +1,24 @@
 
 |------------------------------------------------------------------|
-| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.5 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date                 = Fri Sep  8 15:49:01 2006
-Sequence file        = ppib1.fa
-Results file         = ppib1.pr3
-Primer3 file         = 
-Cloning vector       = pet-32a.txt
-Clamp flag           = both
-Maximum changes      = 1
-Search past start    = 0
-Search before stop   = 0
-Excluded sites       = 
+Date = Tue Sep 12 11:43:13 2006
+
+Sequence file  = ppib1.fa
+Results file   = ppib1.pr3
+Primer3 file   = 
+Cloning vector = pet-32a.txt
+Clamp flag     = both
+
+Maximum mutagenic changes = 1 (per PCR primer)
+Search past START codon   = 18
+Search before STOP codon  = 0
+Excluded sites            = 
+
 Original sequence:
 ATTTTTTAGAGGGAATTCCAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
@@ -52,10 +55,10 @@ SEQUENCE SIZE: 731
 INCLUDED REGION SIZE: 731
 
 PRODUCT SIZE: 626, PAIR ANY COMPL: 4.00, PAIR 3' COMPL: 1.00
-EXCLUDED REGIONS (start, len)*: 39,492
+EXCLUDED REGIONS (start, len)*: 42,486
 
     0 ATTTTTTAGAGGGAATTCGAAATGGTTACATTACACACAAACTTTGGCGACATTAAAATT
-              >>>>>>>>>>>>>>>>>>>>>          XXXXXXXXXXXXXXXXXXXXX
+              >>>>>>>>>>>>>>>>>>>>>             XXXXXXXXXXXXXXXXXX
 
    60 AAATTGGATTTTGATAAAGCTCCAGTTACAGCAGAAAACTTCTTAAATTACTGCAAAGAC
       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -79,7 +82,7 @@ EXCLUDED REGIONS (start, len)*: 39,492
       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   480 CAAGATGTTCCAACTGAAGATGTAGTGATTACATCGGTTTCTATTGAGTAACAAATGAGC
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         
+      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX            
 
   540 ATAAAACAACATCGCCCTAAAGTTGGAGAAATTCTAGAATGTGATTATGGTCAATTTTCG
                                                                   

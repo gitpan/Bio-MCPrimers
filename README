@@ -1,4 +1,4 @@
-README for MCPrimers.pm V2.4 and
+README for MCPrimers.pm V2.5 and
 mcprimers.pl, mcprimers_gui.pl, CloningVector.pm
 
 1. Authorship and copyright
@@ -77,7 +77,7 @@ an external data file.
 Solver is generic, restriction enzymes and their order in the vector 
 are specified in the data file specified.
 
-4. Test Results (V2.4)
+4. Test Results (V2.5)
 
 t/test.pl will test the release when run from a command line
 

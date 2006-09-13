@@ -1,6 +1,6 @@
 package Bio::MCPrimers;
 
-our $VERSION = '2.4';
+our $VERSION = '2.5';
 
 use strict;
 use warnings;
@@ -22,7 +22,6 @@ use warnings;
 my $primer3_name;           # set depending upon OS
 my $primer3_dir;            # from $ENV or set to default
 my $primer3_exe;            # full executable name
-my $PEEK_IN = 18;           # peek into start of gene
 my $min_size_primer = 18;   # minimum size primer
 my $max_size_primer = 24;   # maximum size primer  
 my $MIN_PRODUCT_SIZE = 60;  # size in bases of minimum sized product
@@ -111,7 +110,7 @@ sub find_mc_primers {
         @re              # array of restriction enzyme strings
        ) = @_;
 
-    my $searchpaststart = 0;    # permit the search for left primer
+    my $searchpaststart = 18;   # permit the search for left primer
                                 # to shift to the right for > 0
     my $searchbeforestop = 0;   # permit the search for right primer
                                 # to shift to the left for > 0
@@ -218,7 +217,7 @@ sub _solver {
         foreach my $re_pos_l (@{$re_pos_l_ref}) {
                     
             # control where left primer is placed
-            if ($re_pos_l > ($orf_start + $PEEK_IN + $searchpaststart)) {            
+            if ($re_pos_l > ($orf_start + $searchpaststart)) {            
                 next; 
             }
          
@@ -380,9 +379,9 @@ sub _primers_ok {
   
     # create Boulder file text for Primer3
     my $range = length $orf; 
-    my $excluded_region_start = $orf_start + $PEEK_IN + $searchpaststart;
+    my $excluded_region_start = $orf_start + $searchpaststart + $CODON_SIZE;
     my $excluded_length = 
-         $orf_stop - $excluded_region_start + $CODON_SIZE - $searchbeforestop;
+         $orf_stop - $excluded_region_start - $searchbeforestop;
 
     # mcprimers calculates these
     my @boulder = 
@@ -806,7 +805,7 @@ sub _create_left_primers {
     my $seq_to_search = 
         substr($modified_gene, 
                0, 
-               $orf_start + $PEEK_IN + $searchpaststart + $max_size_primer);
+               $orf_start + $searchpaststart + $max_size_primer);
  
     my $left_primers  = {};
     
@@ -1023,6 +1022,7 @@ mcprimers_gui.pl
 Note: Use perl -Ilib if modules are still in local lib directory.
 
 See mcprimers.pl for an example of the use of Bio::MCPrimers itself
+See MCPrimers_manual.doc for user documentation
 
 Note: mcprimers.pl is a command line program
       mcprimers_gui.pl is a GUI on top of mcprimers.pl
@@ -1079,6 +1079,7 @@ software so that it functions cooperatively with other Perl modules.
 
 Anar Khan and Alastair Kerr for their advice at BOSC 2006 regarding
 EMBOSS compatability, Primer3 parameters, and selective use of sites.
+They also insisted that I enhance MCPrimers to do eukaryotic organisms.
 
 Other references:
 

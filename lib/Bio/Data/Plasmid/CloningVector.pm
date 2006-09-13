@@ -1,6 +1,6 @@
 package Bio::Data::Plasmid::CloningVector; 
 
-our $VERSION = '2.4';
+our $VERSION = '2.5';
 
 #
 # Tim Wiggin, Stephen G. Lenk (C) 2006.
@@ -36,13 +36,6 @@ our $VERSION = '2.4';
 #
 # MCPRIMERS_DATA_DIR - if this environments variable is defined, 
 #                      it is a file path prefix for the vector data file.
-#
-# Revision history:
-# 
-#    2.2 - changed to read a tab-seperated text file,
-#          matches 2.2 release of MCPrimers
-#    2.3 - updated version to match MCPrimers 2.3
-#    2.4 - updated version to match MCPrimers 2.4
 
 use strict;
 use warnings;

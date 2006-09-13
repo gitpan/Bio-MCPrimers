@@ -6,8 +6,8 @@ Use: mcprimers.pl [options] vector.txt sequence.fasta result.pr3
 Options:  -help
           -stdout
           -filter
-          -searchpaststart integer
-          -searchbeforestop integer
+          -searchpaststart integer (default = 18)
+          -searchbeforestop integer (default = 0)
           -clamp (both | 3prime)
           -maxchanges integer
           -excludedsites comma_seperated_list_with_no_blanks

@@ -1,4 +1,6 @@
+@echo off
 set PRIMER3_DIR=c:\windows\system32
+
 
 @rem = '--*-Perl-*--
 @echo off
@@ -15,7 +17,7 @@ goto endofperl
 #!/usr/bin/perl -w
 #line 15
 
-$VERSION = '2.4'; 
+$VERSION = '2.5'; 
 
 # mcprimers.pl - Designs molecular cloning PCR primers.
 
@@ -37,7 +39,7 @@ $VERSION = '2.4';
 # Limitations: Does not account for redundancy codes in FASTA files
 # Note:        These runs use intermediate files keyed to PID
 #              See Bio::MCPrimers for POD
-#              Use with V2.4 of BIO::MCPrimers.pm
+#              Use with V2.5 of BIO::MCPrimers.pm
 
 use strict;
 use warnings;
@@ -48,7 +50,7 @@ my %flag;                     # hash for all flags
 $flag{clamp}        = 'both'; # default
 $flag{stdout}       = 0;      # default
 $flag{filter}       = 0;      # default
-$flag{searchpaststart} = 0;   # default
+$flag{searchpaststart} = 18;  # default
 $flag{searchbeforestop} = 0;  # default
 $flag{maxchanges} = 3;        # default
 
@@ -120,26 +122,28 @@ sub print_output {
     my $copr = 
     qq/
 |------------------------------------------------------------------|
-| MCPrimers V2.4 Copyright (c) 2005,2006 Stephen G. Lenk           |
+| MCPrimers V2.5 Copyright (c) 2005,2006 Stephen G. Lenk           |
 | CloningVector  Copyright (c) 2006 Tim Wiggin and Stephen G. Lenk |
 | Primer3        Copyright (c) 1996,1997,1998,1999,2000,2001,2004  |
 | Whitehead Institute for Biomedical Research. All rights reserved |
 |------------------------------------------------------------------|
 
-Date                 = $local_time
-Sequence file        = $seq_file
-Results file         = $out_file
-Primer3 file         = $pr3_file
-Cloning vector       = $vector_name
-Clamp flag           = $flag{clamp}
-Maximum changes      = $flag{maxchanges}
-Search past start    = $flag{searchpaststart}
-Search before stop   = $flag{searchbeforestop}
+Date = $local_time
+
+Sequence file  = $seq_file
+Results file   = $out_file
+Primer3 file   = $pr3_file
+Cloning vector = $vector_name
+Clamp flag     = $flag{clamp}
+
+Maximum mutagenic changes = $flag{maxchanges} (per PCR primer)
+Search past START codon   = $flag{searchpaststart}
+Search before STOP codon  = $flag{searchbeforestop}
 /;
     
-    print $out_fh $copr, "Excluded sites       = ";
+    print $out_fh $copr, "Excluded sites            = ";
     foreach (@excluded_sites) {print $out_fh "$re_name{$_} "};
-    print $out_fh "\n";
+    print $out_fh "\n\n";
     
     # Primer3 Boulder tags
     if (keys %pr3) {
@@ -390,7 +394,7 @@ sub parse_arguments {
             else {
                  die "\nError: -clamp uses both or 3prime only\n\n";
             }     
-        }  		
+        }       
         elsif ($flag =~ /^\-maxchanges/) {
     
             # Maximum mutagenic changes
@@ -411,7 +415,7 @@ sub parse_arguments {
             else {
                  die "\nError: -maxchanges must be an integer\n\n";
             }     
-        }  				
+        }               
         elsif ($flag =~ /^\-excludedsites/) {
             
             # excluded recognition sites
@@ -566,10 +570,10 @@ Use: mcprimers.pl [options] vector.txt sequence.fasta result.pr3
 Options:  -help
           -stdout
           -filter
-          -searchpaststart integer
-          -searchbeforestop integer
+          -searchpaststart integer (default = 18)
+          -searchbeforestop integer (default = 0)
           -clamp (both | 3prime)
-		  -maxchanges integer
+          -maxchanges integer
           -excludedsites comma_seperated_list_with_no_blanks
           -primerfile primer3_file_name
           -vectorfile vector_file_name

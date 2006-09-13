@@ -1,5 +1,5 @@
 application: mcprimers [
-  documentation: "Designs PCR primers for molecular cloning"
+  documentation: "Designs PCR primers for molecular cloning with a specific plasmid"
   groups: "Nucleic:Primers"
 ]
 
@@ -8,33 +8,37 @@ section: input [
   type: "page"
 ]  
 
-  datafile: vectorfile  [
+  string: vectorfile  [
     parameter: "Y"
+    knowntype: "string"
     information: "Vector file"
     help: "Vector file using CloningVector format"
   ]
-
-  infile: infile  [
+  
+  datafile: infile  [
     parameter: "Y"
+    knowntype: "dna fasta"
     information: "FASTA sequence"
     help: "FASTA DNA only"
   ]  
 
 endsection: input
 
-section: advanced [
-  information: "Advanced section"
+section: additional [
+  information: "Additional section"
   type: "page"
 ]
 
   string: primerfile [
-    information: "Primer3 parameter file"
-    help: "Boulder format Primer3 parameter file name"
+    information: "Boulder format Primer3 parameter file"
+    knowntype: "string"
+    help: "Boulder format Primer3 parameter file"
     additional: "Y"    
   ]
 
   string: excluedsites [
     information: "Excluded sites"
+    knowntype: "string"
     help: "Comma seperated list of excluded sites"
     additional: "Y"    
   ]
@@ -48,9 +52,9 @@ section: advanced [
   ]
   
   integer: searchafterstart  [
-    default: 0
+    default: 18
     minimum: 0
-    maximum: 30
+    maximum: 60
     information: "Shift search right into ORF from start codon"
     help: "Shift search right into ORF from start codon"
     additional: "Y"    
@@ -59,13 +63,22 @@ section: advanced [
   integer: searchbeforestop  [
     default: 0
     minimum: 0
-    maximum: 30
+    maximum: 60
     information: "Shift search left into ORF from stop codon"
     help: "Shift search left into ORF from stop codon"
     additional: "Y"    
   ]
-  
-endsection: advanced
+   
+  integer: maxchanges  [
+    default: 3
+    minimum: 0
+    maximum: 3
+    information: "Maximum number of mutagenis changes per primer"
+    help: "Maximum number of mutagenis changes per primer"
+    additional: "Y"    
+  ]
+
+endsection: additional
 
 section: output [
   information: "Output section"
@@ -74,8 +87,8 @@ section: output [
 
   outfile: outfile  [
     parameter: "Y"
-    information: "Output report"
-    help: "Output report"
+    knowntype: "primer3 output"
+    help: "Primer3 output"
   ]
   
 endsection: output
